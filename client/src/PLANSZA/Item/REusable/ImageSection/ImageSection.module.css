@@ -1,0 +1,13 @@
+.ImageSection {
+    height: 50%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.ImageSection img {
+    height: 300px;
+    margin-top: 5%;
+    margin-bottom: 0.5%;
+}
