@@ -1,22 +1,39 @@
-.Grid {
-    left: 0;
-    margin-top: 3%;
-}
 
-.Control {
-    margin-top: 5%;
-}
-
-@media (min-height: 700px) and (min-width: 700px) {
-    .Grid {
-        height: 100%;
-        width: 700px;
-    }  
-}
-
-@media (min-height: 800px) and (min-width: 800px) {
-    .Grid {
-        height: 100%;
-        width: 800px;
-    }  
-}
+   .container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: "map createmap"
+    "map inputs"
+    "map items"
+    "map placable"
+    "map add"
+    "map ret";
+    grid-template-columns: 1096px 1fr;
+    grid-template-rows: 93px 172px 428px 1fr 1fr 1fr;
+  }
+  .container > div {
+    border: 1px dashed #888;
+  }
+  
+  .map {
+    grid-area: map;
+  }
+  .createmap {
+    grid-area: createmap;
+  }
+  .inputs {
+    grid-area: inputs;
+  }
+  .items {
+    grid-area: items;
+  }
+  .placable {
+    grid-area: placable;
+  }
+  .add {
+    grid-area: add;
+  }
+  .ret {
+    grid-area: ret;
+  }
