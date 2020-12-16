@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom';
 
 import InputSection from '../REusable/InputSection/InputSection';
 import ImageSection from '../REusable/ImageSection/ImageSection';
-import classes from '../ItemCreate/ItemCreate.module.css';
+import classes from '../ItemModify/ItemModify.module.css';
 import Modal from '../../UI/Modal/Modal';
 
 class ItemModify extends Component {
