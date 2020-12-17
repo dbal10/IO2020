@@ -14,7 +14,8 @@ const grid = (props) => {
                     item={props.fields[fKey].item}
                     clicked={props.clicked}
                     fieldKey={fKey}
-                    key={fKey} />
+                    key={fKey}
+                    id={fKey} />
                 // <button
                 //     clicked={props.clicked(fKey)}
                 //     key={fKey} 

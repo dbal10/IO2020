@@ -13,7 +13,7 @@ const width = 10;
 const length = 10;
 
 let activatePlacable = false;
-let chosenItem = null;
+let chosenItemKey = null;
 
 class MapTemplateCreate extends Component {
     state = {
@@ -68,31 +68,48 @@ class MapTemplateCreate extends Component {
         }
     }
 
-    fieldClicked = (i) => {
+    muteFields = (fields, id, widthX, lengthY) => {
+        for (let i = 0; i < widthX; i++) {
+            for (let j = 0; j < lengthY; j++) {
+                const x = (parseInt(j) * length) + parseInt(i) + id;
+                fields[x]['item'] = null;
+                fields[x]['partOfItem'] = true;
+                if (j === lengthY) {
+                    break;
+                }
+            }
+            if (i === widthX) {
+                break;
+            }
+        }
+    }
+
+    fieldClicked = (event) => {
         if (activatePlacable) {
             const newFields = [...this.state.fields];
-            console.log(i.target.id)
-            newFields[i.target.id].placable = !newFields[i.target.id].placable;
+            newFields[event.target.id].placable = !newFields[event.target.id].placable;
             this.setState({ fields: newFields });
         } else {
-            if (chosenItem != null) {
-                console.log(i.target.id);
+            if (chosenItemKey != null) {
                 const newFields = [...this.state.fields];
-                console.log(newFields);
-                console.log(newFields[i.target.id]);
-                newFields[i.target.id].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItem]));
+                const I = parseInt(this.state.allItems[chosenItemKey].length);
+                const J = parseInt(this.state.allItems[chosenItemKey].width);
+                const key = parseInt(event.target.id);
+                this.muteFields(newFields, key, I, J);
+                newFields[key].partOfItem = false;
+                newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
                 this.setState({ fields: newFields });
             }
         }
     }
 
-    itemClicked = (i) => {
+    itemClicked = (event) => {
         if (activatePlacable) {
             const newItems = [...this.state.allItems];
-            newItems[i.target.id].avaliable = !newItems[i.target.id].avaliable;
+            newItems[event.target.id].avaliable = !newItems[event.target.id].avaliable;
             this.setState({ allItems: newItems });
         } else {
-            chosenItem = i.target.id;
+            chosenItemKey = event.target.id;
         }
     }
 

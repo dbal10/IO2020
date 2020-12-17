@@ -20,7 +20,7 @@ class Field extends Component {
                 field = <button className={classes.unplacable} id={this.props.fieldKey} onClick={this.props.clicked} ></button>
             }  
         }
-        
+
         return field;
     }
 };
