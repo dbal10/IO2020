@@ -2,28 +2,29 @@ import uuid from 'react-uuid';
 
 const initialState = {
     info: 'Redux and react-redux connected',
-    items: [
-        {
-            id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-            file: 'z',
-            itemName: 'przyklad 1',
-            width: 1,
-            length: 1,
-            realHeight: 1.22,
-            price: 11,
-            itemType: 'przyklad'
-        }
-    ],
-    itemToModify: {
-        id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-        file: 'z',
-        itemName: 'przyklad 1',
-        width: 1,
-        length: 1,
-        realHeight: 1.22,
-        price: 11,
-        itemType: 'przyklad'
-    }
+    // items: [
+    //     {
+    //         id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
+    //         file: 'z',
+    //         itemName: 'przyklad 1',
+    //         width: 1,
+    //         length: 1,
+    //         realHeight: 1.22,
+    //         price: 11,
+    //         itemType: 'przyklad'
+    //     }
+    // ],
+    items : [],
+    // itemToModify: {
+    //     id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
+    //     file: 'z',
+    //     itemName: 'przyklad 1',
+    //     width: 1,
+    //     length: 1,
+    //     realHeight: 1.22,
+    //     price: 11,
+    //     itemType: 'przyklad'
+    // }
 }
 
 const reducer = (state = initialState, action) => {

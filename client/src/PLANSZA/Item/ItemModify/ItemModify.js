@@ -103,14 +103,14 @@ class ItemModify extends Component {
 
 const mapStateToProps = state => {
     return {
-        id: state.itemToModify.id,
-        file: state.itemToModify.file,
-        itemName: state.itemToModify.itemName,
-        width: state.itemToModify.width,
-        length: state.itemToModify.length,
-        realHeight: state.itemToModify.realHeight,
-        price: state.itemToModify.price,
-        type: state.itemToModify.type
+        id: state.items[0].id,
+        file: state.items[0].file,
+        itemName: state.items[0].itemName,
+        width: state.items[0].width,
+        length: state.items[0].length,
+        realHeight: state.items[0].realHeight,
+        price: state.items[0].price,
+        type: state.items[0].type
     };
 }
 

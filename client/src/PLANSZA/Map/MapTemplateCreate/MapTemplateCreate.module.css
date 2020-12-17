@@ -37,3 +37,7 @@
   .ret {
     grid-area: ret;
   }
+  .clicked {
+    grid-area: placable;
+    box-shadow: inset 0 0 0 50px rgb(15, 224, 25, 0.5);
+}

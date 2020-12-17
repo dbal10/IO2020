@@ -7,8 +7,10 @@ import classes from './MapTemplateCreate.module.css';
 import MapTemplateInputs from '../REusable/MapTemplateInputs/MapTemplateInputs';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 
-const width = 50;
-const length = 50;
+// const width = 50;
+// const length = 50;
+const width = 10;
+const length = 10;
 
 let activatePlacable = false;
 let chosenItem = null;
@@ -16,38 +18,7 @@ let chosenItem = null;
 class MapTemplateCreate extends Component {
     state = {
         fields: [],
-        allItems: [
-            {
-                id: 'a85a8e6b-348b-4011-a1ec-1e78e9620782',
-                file: 'z',
-                itemName: 'p1',
-                width: 1,
-                length: 1,
-                realHeight: 1.22,
-                price: 11,
-                itemType: 'przyklad'
-            },
-            {
-                id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-                file: 'z',
-                itemName: 'p2',
-                width: 1,
-                length: 1,
-                realHeight: 1.22,
-                price: 11,
-                itemType: 'przyklad'
-            },
-            {
-                id: 'c85a8e6b-348b-4011-a1ec-1e78e9620782',
-                file: 'z',
-                itemName: 'p3',
-                width: 1,
-                length: 1,
-                realHeight: 1.22,
-                price: 11,
-                itemType: 'przyklad'
-            }
-        ],
+        allItems: this.props.items,
         money: null,
         temperature: null,
         mapName: null
@@ -60,17 +31,7 @@ class MapTemplateCreate extends Component {
                 newFields = [
                     ...newFields,
                     {
-                        item: 
-                        {
-                            id: 'd85a8e6b-348b-4011-a1ec-1e78e9620782',
-                            file: 'z',
-                            itemName: 'p0',
-                            width: 1,
-                            length: 1,
-                            realHeight: 1.22,
-                            price: 11,
-                            itemType: 'przyklad'
-                        },
+                        item: null,
                         partOfItem: false,
                         placable: false
                     }
@@ -110,11 +71,15 @@ class MapTemplateCreate extends Component {
     fieldClicked = (i) => {
         if (activatePlacable) {
             const newFields = [...this.state.fields];
+            console.log(i.target.id)
             newFields[i.target.id].placable = !newFields[i.target.id].placable;
             this.setState({ fields: newFields });
         } else {
             if (chosenItem != null) {
+                console.log(i.target.id);
                 const newFields = [...this.state.fields];
+                console.log(newFields);
+                console.log(newFields[i.target.id]);
                 newFields[i.target.id].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItem]));
                 this.setState({ fields: newFields });
             }
@@ -159,4 +124,26 @@ class MapTemplateCreate extends Component {
     }
 };
 
-export default MapTemplateCreate;
+const mapStateToProps = state => {
+    return {
+        items: state.items
+    };
+}
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         modifyItem: (x) => dispatch({
+//             type: 'MODIFYITEM',
+//             id: x.id,
+//             file: x.file,
+//             itemName: x.itemName,
+//             width: x.width,
+//             length: x.length,
+//             realHeight: x.realHeight,
+//             price: x.price,
+//             itemType: x.type
+//         })
+//     };
+// }
+
+export default connect(mapStateToProps)(MapTemplateCreate);

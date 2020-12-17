@@ -7,12 +7,20 @@ class Field extends Component {
     render() {
         let field = null;
 
-        if (this.props.placable) {
-            field = <button className={classes.placable} id={this.props.fieldKey} onClick={this.props.clicked} >{this.props.item.itemName}</button>
+        if (this.props.item!==null){
+            if (this.props.placable) {
+                field = <button className={classes.placable} id={this.props.fieldKey} onClick={this.props.clicked} >{this.props.item.itemName}</button>
+            } else {
+                field = <button className={classes.unplacable} id={this.props.fieldKey} onClick={this.props.clicked} >{this.props.item.itemName}</button>
+            }            
         } else {
-            field = <button className={classes.unplacable} id={this.props.fieldKey} onClick={this.props.clicked} >{this.props.item.itemName}</button>
+            if (this.props.placable) {
+                field = <button className={classes.placable} id={this.props.fieldKey} onClick={this.props.clicked} ></button>
+            } else {
+                field = <button className={classes.unplacable} id={this.props.fieldKey} onClick={this.props.clicked} ></button>
+            }  
         }
-
+        
         return field;
     }
 };
