@@ -68,6 +68,16 @@ class MapTemplateCreate extends Component {
         }
     }
 
+    removeItem = (newFields, mainField) => {
+        for (let i = 0; i < newFields[mainField].item.width; i++) {
+            for (let j = 0; j < newFields[mainField].item.length; j++) {
+                const removedItemsField = (j * length) + i + mainField;
+                newFields[removedItemsField].partOfItem = false;
+            }
+        }
+        newFields[mainField].item = null;
+    }
+
     fieldClicked = (event) => {
         // change the placability for user
         if (activatePlacable) {
@@ -86,12 +96,13 @@ class MapTemplateCreate extends Component {
                 // check if item fit in chosen place on width
                 if ((width - this.state.allItems[chosenItemKey].width) >= (key % width)) {
                     // check if item fit in chosen place on length
-                    if ((length - this.state.allItems[chosenItemKey].length) >= (key % length)) {
+                    if ((length - this.state.allItems[chosenItemKey].length) >= Math.floor(key / length)) {
 
                         const newFields = [...this.state.fields];
 
                         // check if, on all fields, fillen by chosen item, are placed other items and remove them
-                        // especiali if they are multi fields, and partoOfItem-fields are out of chosen item partOfItem-fields
+                        // (if they are multi fields, remove it's partOfItem feilds)
+                        // check if, on all fields, fillen by chosen item, are other items partOfItem fields adn remove this item
                         for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
                             for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
                                 const partialField = (j * length) + i + key;
@@ -101,14 +112,34 @@ class MapTemplateCreate extends Component {
 
                                     // if field is not empty = is an item
                                     if (newFields[partialField].item != null) {
-                                        // check if it's multi field item, remove it and it's partsOfItem-fields
-                                        for (let i2 = 0; i2 < newFields[partialField].item.width; i2++) {
-                                            for (let j2 = 0; j2 < newFields[partialField].item.length; j2++) {
-                                                const removedItemsField = (j2 * length) + i2 + partialField;
-                                                newFields[removedItemsField].partOfItem = false;
+                                        this.removeItem(newFields, partialField);
+                                    }
+                                }
+                                // if field si a partOfItem, then this item, main field, is out of range, of item to place
+                                // remove this item
+                                else {
+                                    let xSearch = key % width;
+                                    let ySearch = Math.floor(key / length);
+                                    // if i = 0 then look for item main field on the left
+                                    if (i === 0) {
+                                        for (let j2 = 1; j2 <= xSearch; j2++) {
+                                            const fieldToCheck = partialField - j2;
+                                            // if we it found an item, remove it and it's partOfItem fields
+                                            if (newFields[fieldToCheck].item !== null) {
+                                                this.removeItem(newFields, fieldToCheck);
                                             }
                                         }
-                                        newFields[partialField].item = null;
+                                    }
+                                    // if j = 0 then look for item main field above
+                                    if (j === 0) {
+                                        for (let i2 = 1; i2 <= ySearch; i2++) {
+                                            const fieldToCheck = partialField - i2 * length;
+                                            // if we it found an item, remove it and it's partOfItem fields
+                                            if (newFields[fieldToCheck].item !== null) {
+                                                this.removeItem(newFields, fieldToCheck);
+                                            }
+                                        }
+
                                     }
                                 }
                             }
@@ -121,21 +152,14 @@ class MapTemplateCreate extends Component {
 
                             for (let i = 0; i < ySearch; i++) {
                                 for (let j = 0; j < xSearch; j++) {
-                                    if ( (i !== 0 ) || ( j !== 0) ) {
+                                    if ((i !== 0) || (j !== 0)) {
                                         const fieldToCheck = key - i - length * j;
                                         // check if field have an item
                                         if (newFields[fieldToCheck].item != null) {
                                             // check if items width or length is reaching the field where we want to plce new item
                                             if (newFields[fieldToCheck].item.length - j >= 1
                                                 || newFields[fieldToCheck].item.width - i >= 1) {
-                                                // remove this item and it's partOfItem fields
-                                                for (let i2 = 0; i2 < newFields[fieldToCheck].item.width; i2++) {
-                                                    for (let j2 = 0; j2 < newFields[fieldToCheck].item.length; j2++) {
-                                                        const removedItemsField = (j2 * length) + i2 + fieldToCheck;
-                                                        newFields[removedItemsField].partOfItem = false;
-                                                    }
-                                                }
-                                                newFields[fieldToCheck].item = null;
+                                                this.removeItem(newFields, fieldToCheck);
                                                 i = ySearch;
                                                 j = xSearch;
                                             }
