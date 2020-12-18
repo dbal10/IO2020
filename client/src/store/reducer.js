@@ -28,9 +28,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-    console.log('Zawartosc state: ' + state.items.map(item => {
-        return [item.id, item.file, item.itemName, item.width, item.length, item.realHeight, item.price, item.itemType];
-    }));
     switch (action.type) {
         case 'ADDNEWITEM':
             return {

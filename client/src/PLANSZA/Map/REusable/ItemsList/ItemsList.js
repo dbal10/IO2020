@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Item from './Item/Item';
+import classes from './ItemsList.module.css';
 
 const itemsList = (props) => {
-    let item = Object.keys(props.items)
+    let items = Object.keys(props.items)
         .map(iKey => {
             return [...Array(props.items[iKey])].map((_, i) => {
                 return (
@@ -12,7 +13,12 @@ const itemsList = (props) => {
             })
         })
 
-    return item
+    return (
+    <div className={classes.items}>
+        {items}
+    </div>       
+    )
+
 };
 
 export default itemsList;
