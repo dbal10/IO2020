@@ -7,13 +7,12 @@
     "map createmap"
     "map inputs"
     "map items"
-    "map rotate"
     "map placable"
     "map symulation"
     "map add"
     "map ret";
     grid-template-columns: 75% 25%;
-    grid-template-rows: 8% 13% 54% repeat(5, 5%);
+    grid-template-rows: 8% 15% 57% repeat(4, 5%);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
   }
@@ -32,9 +31,6 @@
   }
   .items {
     grid-area: items;
-  }
-  .rotate{
-    grid-area: rotate;
   }
   .placable {
     grid-area: placable;

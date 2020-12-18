@@ -86,6 +86,7 @@ class MapTemplateCreate extends Component {
         // change the placability for user
         if (activatePlacable) { newFields[key].placable = !newFields[key].placable; }
         else {
+
             // place item if possible
             // chcek if item to place is chosen
             if (chosenItemKey != null) {
@@ -103,12 +104,9 @@ class MapTemplateCreate extends Component {
 
                                 // // if field is not a partOfItem, possibly an item
                                 // if (!newFields[partialField].partOfItem) {
-
-                                // if field is not empty = is an item
                                 if (newFields[partialField].item != null) {
                                     this.removeItem(newFields, partialField);
                                 }
-                                // }
 
                             }
                         }
@@ -122,7 +120,10 @@ class MapTemplateCreate extends Component {
                             if (newFields[key + i].partOfItem) {
                                 for (let j = 1; j <= ySearch; j++) {
                                     if (newFields[key + i - j * length].item !== null) {
-                                        this.removeItem(newFields, key + i - j * length);
+                                        if (newFields[key + i - j * length].item.width > i
+                                            && newFields[key + i - j * length].item.length > j) {
+                                            this.removeItem(newFields, key + i - j * length);
+                                        }
                                     }
                                 }
                             }
@@ -135,7 +136,10 @@ class MapTemplateCreate extends Component {
                             if (newFields[key + j * length].partOfItem) {
                                 for (let i = 1; i <= xSearch; i++) {
                                     if (newFields[key + j * length - i].item !== null) {
-                                        this.removeItem(newFields, key + j * length - i);
+                                        if (newFields[key + j * length - i].item.width > i
+                                            && newFields[key + j * length - i].item.length > j) {
+                                                this.removeItem(newFields, key + j * length - i);
+                                            }
                                     }
                                 }
                             }
@@ -151,85 +155,17 @@ class MapTemplateCreate extends Component {
                                     if (i !== 0 || j !== 0) {
                                         const fieldToCheck = key - i - j * length;
                                         if (newFields[fieldToCheck].item !== null) {
-                                            if (newFields[fieldToCheck].item.width > i 
+                                            if (newFields[fieldToCheck].item.width > i
                                                 && newFields[fieldToCheck].item.length > j) {
-                                                    this.removeItem(newFields, fieldToCheck);
-                                                    i = xSearch + 1;
-                                                    j = ySearch + 1;
-                                                }
-                                        }                                        
+                                                this.removeItem(newFields, fieldToCheck);
+                                                i = xSearch + 1;
+                                                j = ySearch + 1;
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
-
-                        // check if main field of new item is a partOfField for other item
-                        // in one line top and left is enought, top left corner is valid
-                        // if (newFields[key].partOfItem) {
-                        //     let xSearch = key % width;
-                        //     let ySearch = Math.floor(key / length);
-                        //     let ifYSearch = true;
-
-                        //     for (let i = 1; i <= xSearch; i++) {
-                        //         if (newFields[key - i].item !=== null) {
-
-                        //         }
-                        //     }
-                        // }
-
-                        // if (newFields[key].partOfItem) {
-                        //     let xSearch = Math.floor(key / length);;
-                        //     let ySearch = key % width;
-
-                        //     for (let i = 0; i < ySearch; i++) {
-                        //         for (let j = 0; j < xSearch; j++) {
-                        //             if ((i !== 0) || (j !== 0)) {
-                        //                 const fieldToCheck = key - i - length * j;
-                        //                 // check if field have an item
-                        //                 if (newFields[fieldToCheck].item != null) {
-                        //                     // check if items width or length is reaching the field where we want to plce new item
-                        //                     if (newFields[fieldToCheck].item.length - j >= 1
-                        //                         || newFields[fieldToCheck].item.width - i >= 1) {
-                        //                         this.removeItem(newFields, fieldToCheck);
-                        //                         i = ySearch;
-                        //                         j = xSearch;
-                        //                     }
-                        //                 }
-                        //             }
-                        //         }
-                        //     }
-                        // }
-
-                        // for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
-                        //     for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
-
-                        //         let xSearch = key % width;
-                        //         let ySearch = Math.floor(key / length);
-
-                        //         // if i = 0 then look for item main field on the left
-                        //         if (i === 0) {
-                        //             for (let j2 = 1; j2 <= xSearch; j2++) {
-                        //                 const fieldToCheck = partialField - j2;
-                        //                 // if we it found an item, remove it and it's partOfItem fields
-                        //                 if (newFields[fieldToCheck].item !== null) {
-                        //                     if (newFields[fieldToCheck])
-                        //                         this.removeItem(newFields, fieldToCheck);
-                        //                 }
-                        //             }
-                        //         }
-                        //         // if j = 0 then look for item main field above
-                        //         if (j === 0) {
-                        //             for (let i2 = 1; i2 <= ySearch; i2++) {
-                        //                 const fieldToCheck = partialField - i2 * length;
-                        //                 // if we it found an item, remove it and it's partOfItem fields
-                        //                 if (newFields[fieldToCheck].item !== null) {
-                        //                     this.removeItem(newFields, fieldToCheck);
-                        //                 }
-                        //             }
-
-                        //         }
-                        //     }
-                        // }
 
                         // place item
                         for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
@@ -244,9 +180,9 @@ class MapTemplateCreate extends Component {
                         newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
                     }
                 }
-
             }
         }
+
         this.setState({ fields: newFields });
     }
 
@@ -280,7 +216,6 @@ class MapTemplateCreate extends Component {
                 <div className={classes.items}>
                     <ItemsList clicked={this.itemClicked} items={this.state.allItems} />
                 </div>
-                <button className={classes.rotate}>Rotate</button>
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
                 <button className={classes.symulation}>Symulation</button>
                 <button className={classes.add}>Add</button>
