@@ -115,12 +115,12 @@ class MapTemplateCreate extends Component {
 
                         // if boundary field is a partOfItem, then this item, main field, is out of range, of item to place
                         // remove this item
-                        // chcek width
+                        // chcek width above
                         for (let i = 1; i < this.state.allItems[chosenItemKey].width; i++) {
-                            let xSearch = key % width;
+                            let ySearch = Math.floor(key / length);
 
                             if (newFields[key + i].partOfItem) {
-                                for (let j = 1; j <= xSearch; j++) {
+                                for (let j = 1; j <= ySearch; j++) {
                                     if (newFields[key + i - j * length].item !== null) {
                                         this.removeItem(newFields, key + i - j * length);
                                     }
@@ -128,19 +128,78 @@ class MapTemplateCreate extends Component {
                             }
                         }
 
-                        //check length
+                        // check length left
                         for (let j = 1; j < this.state.allItems[chosenItemKey].length; j++) {
-                            let ySearch = Math.floor(key / length);
+                            let xSearch = key % width;
 
                             if (newFields[key + j * length].partOfItem) {
-                                for (let i = 1; i <= ySearch; i++) {
+                                for (let i = 1; i <= xSearch; i++) {
                                     if (newFields[key + j * length - i].item !== null) {
                                         this.removeItem(newFields, key + j * length - i);
                                     }
                                 }
                             }
                         }
-                        
+
+                        // check left top corner
+                        if (newFields[key].partOfItem) {
+                            let xSearch = key % width;
+                            let ySearch = Math.floor(key / length);
+
+                            for (let i = 0; i <= xSearch; i++) {
+                                for (let j = 0; j <= ySearch; j++) {
+                                    if (i !== 0 || j !== 0) {
+                                        const fieldToCheck = key - i - j * length;
+                                        if (newFields[fieldToCheck].item !== null) {
+                                            if (newFields[fieldToCheck].item.width > i 
+                                                && newFields[fieldToCheck].item.length > j) {
+                                                    this.removeItem(newFields, fieldToCheck);
+                                                    i = xSearch + 1;
+                                                    j = ySearch + 1;
+                                                }
+                                        }                                        
+                                    }
+                                }
+                            }
+                        }
+
+                        // check if main field of new item is a partOfField for other item
+                        // in one line top and left is enought, top left corner is valid
+                        // if (newFields[key].partOfItem) {
+                        //     let xSearch = key % width;
+                        //     let ySearch = Math.floor(key / length);
+                        //     let ifYSearch = true;
+
+                        //     for (let i = 1; i <= xSearch; i++) {
+                        //         if (newFields[key - i].item !=== null) {
+
+                        //         }
+                        //     }
+                        // }
+
+                        // if (newFields[key].partOfItem) {
+                        //     let xSearch = Math.floor(key / length);;
+                        //     let ySearch = key % width;
+
+                        //     for (let i = 0; i < ySearch; i++) {
+                        //         for (let j = 0; j < xSearch; j++) {
+                        //             if ((i !== 0) || (j !== 0)) {
+                        //                 const fieldToCheck = key - i - length * j;
+                        //                 // check if field have an item
+                        //                 if (newFields[fieldToCheck].item != null) {
+                        //                     // check if items width or length is reaching the field where we want to plce new item
+                        //                     if (newFields[fieldToCheck].item.length - j >= 1
+                        //                         || newFields[fieldToCheck].item.width - i >= 1) {
+                        //                         this.removeItem(newFields, fieldToCheck);
+                        //                         i = ySearch;
+                        //                         j = xSearch;
+                        //                     }
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+                        // }
+
                         // for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
                         //     for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
 
@@ -171,31 +230,6 @@ class MapTemplateCreate extends Component {
                         //         }
                         //     }
                         // }
-
-
-                        // check if field is partOfItem, find this item, remove it and it's partOfItem-fields
-                        if (newFields[key].partOfItem) {
-                            let xSearch = Math.floor(key / length);;
-                            let ySearch = key % width;
-
-                            for (let i = 0; i < ySearch; i++) {
-                                for (let j = 0; j < xSearch; j++) {
-                                    if ((i !== 0) || (j !== 0)) {
-                                        const fieldToCheck = key - i - length * j;
-                                        // check if field have an item
-                                        if (newFields[fieldToCheck].item != null) {
-                                            // check if items width or length is reaching the field where we want to plce new item
-                                            if (newFields[fieldToCheck].item.length - j >= 1
-                                                || newFields[fieldToCheck].item.width - i >= 1) {
-                                                this.removeItem(newFields, fieldToCheck);
-                                                i = ySearch;
-                                                j = xSearch;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
 
                         // place item
                         for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
