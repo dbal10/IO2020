@@ -2,29 +2,8 @@ import uuid from 'react-uuid';
 
 const initialState = {
     info: 'Redux and react-redux connected',
-    // items: [
-    //     {
-    //         id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-    //         file: 'z',
-    //         itemName: 'przyklad 1',
-    //         width: 1,
-    //         length: 1,
-    //         realHeight: 1.22,
-    //         price: 11,
-    //         itemType: 'przyklad'
-    //     }
-    // ],
     items : [],
-    // itemToModify: {
-    //     id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-    //     file: 'z',
-    //     itemName: 'przyklad 1',
-    //     width: 1,
-    //     length: 1,
-    //     realHeight: 1.22,
-    //     price: 11,
-    //     itemType: 'przyklad'
-    // }
+    maps : []
 }
 
 const reducer = (state = initialState, action) => {
@@ -51,7 +30,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 items: newItems.concat(
                     {
-                        id: uuid(),
+                        id: action.id,
                         file: action.file,
                         itemName: action.itemName,
                         width: action.width,
@@ -61,7 +40,6 @@ const reducer = (state = initialState, action) => {
                         itemType: action.itemType
                     }
                 )
-
             }
         default:
             return state

@@ -2,6 +2,8 @@
     margin: auto;
     overflow: scroll;
     display: grid;
+
+    /* siatka do tesowania 10x10 */
     grid-template-columns:
     50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
     grid-template-rows: 
@@ -20,6 +22,7 @@
     ". . . . . . . . . ."
 
     ;
+    /* siatka właściwa 100x100 */
     /* grid-template-columns:
     50px 50px 50px 50px 50px 50px 50px 50px 50px 50px
     50px 50px 50px 50px 50px 50px 50px 50px 50px 50px

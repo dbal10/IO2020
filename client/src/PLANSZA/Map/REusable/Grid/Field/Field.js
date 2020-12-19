@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import classes from './Field.module.css';
 
 class Field extends Component {
-    /* <img src={URL.createObjectURL(this.props.item)} /> */
+    /* <img src={URL.createObjectURL(this.props.item)} /> */  // to jest przstarzałe nie używać
     render() {
         
         let field = null;
