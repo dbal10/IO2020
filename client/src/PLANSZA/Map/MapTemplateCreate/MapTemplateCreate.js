@@ -86,9 +86,10 @@ class MapTemplateCreate extends Component {
         const key = parseInt(event.target.id);
 
         // change the placability for user
-        if (activatePlacable) { 
+        if (activatePlacable) {
 
             const mainplacable = !newFields[key].placable;
+
             // change placable for whole item if key is the main field
             if (newFields[key].item !== null) {
                 for (let i = 0; i < newFields[key].item.width; i++) {
@@ -98,11 +99,39 @@ class MapTemplateCreate extends Component {
                     }
                 }
             }
+
+            // if key is a partOfItem find main field and change placable for whole item
+            if (newFields[key].partOfItem) {
+                let xSearch = key % width;
+                let ySearch = Math.floor(key / length);
+
+                for (let i = 0; i <= xSearch; i++) {
+                    for (let j = 0; j <= ySearch; j++) {
+                        if (i !== 0 || j !== 0) {
+                            const fieldToCheck = key - i - j * length;
+                            if (newFields[fieldToCheck].item !== null) {
+                                if (newFields[fieldToCheck].item.width > i
+                                    && newFields[fieldToCheck].item.length > j) {
+                                    for (let i2 = 0; i2 < newFields[fieldToCheck].item.width; i2++) {
+                                        for (let j2 = 0; j2 < newFields[fieldToCheck].item.length; j2++) {
+                                            const changedItemsField = (j2 * length) + i2 + fieldToCheck;
+                                            newFields[changedItemsField].placable = mainplacable;
+                                        }
+                                    }
+                                    i = xSearch + 1;
+                                    j = ySearch + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             newFields[key].placable = mainplacable;
         }
         else {
 
-            if (newFields[key].item !== null) { this.removeItem(newFields, key) } 
+            if (newFields[key].item !== null) { this.removeItem(newFields, key) }
             else {
 
                 // place item if possible
