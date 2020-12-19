@@ -17,6 +17,7 @@ const length = 10;
 
 let activatePlacable = false;
 let chosenItemKey = null;
+let emptyFieldsPlacable = true;
 
 class MapTemplateCreate extends Component {
     state = {
@@ -246,6 +247,19 @@ class MapTemplateCreate extends Component {
         }
     }
 
+    switchEmptyFieldsPlacable = () => {
+        let newFields = [...this.state.fields];
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < width; j++) {
+                if (newFields[ i * length + j ].item === null && newFields[ i * length + j ].partOfItem === false) {
+                    newFields[ i * length + j ].placable = emptyFieldsPlacable;
+                }
+            }
+        }
+        emptyFieldsPlacable = !emptyFieldsPlacable;
+        this.setState({ fields: newFields });
+    }
+
     switchToPlacable = () => {
         activatePlacable = !activatePlacable;
     }
@@ -286,6 +300,7 @@ class MapTemplateCreate extends Component {
                     <ItemsList clicked={this.itemClicked} items={this.state.allItems} />
                 </div>
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
+                <button className={classes.placableForMany} onClick={ this.switchEmptyFieldsPlacable }>Change placable for all empty fields</button>
                 <button className={classes.symulation}>Symulation</button>
                 <button className={classes.add} onClick={this.addMapTemplate}>Add</button>
                 <Route className={classes.ret} path="/map/template/create" exact render={() => <button><Link to="/">Return</Link></button>} />

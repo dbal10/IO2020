@@ -17,6 +17,7 @@ const length = 10;
 
 let activatePlacable = false;
 let chosenItemKey = null;
+let emptyFieldsPlacable = true;
 
 class MapTemplateModify extends Component {
     state = {
@@ -62,7 +63,7 @@ class MapTemplateModify extends Component {
 
     fieldClicked = (event) => {
 
-        const newFields = [...this.state.fields];
+        let newFields = [...this.state.fields];
         const key = parseInt(event.target.id);
 
         // change the placability for user
@@ -224,6 +225,19 @@ class MapTemplateModify extends Component {
         }
     }
 
+    switchEmptyFieldsPlacable = () => {
+        let newFields = [...this.state.fields];
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < width; j++) {
+                if (newFields[ i * length + j ].item === null && newFields[ i * length + j ].partOfItem === false) {
+                    newFields[ i * length + j ].placable = emptyFieldsPlacable;
+                }
+            }
+        }
+        emptyFieldsPlacable = !emptyFieldsPlacable;
+        this.setState({ fields: newFields });
+    }
+
     switchToPlacable = () => {
         activatePlacable = !activatePlacable;
     }
@@ -264,6 +278,7 @@ class MapTemplateModify extends Component {
                     <ItemsList clicked={this.itemClicked} items={this.state.allItems} />
                 </div>
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
+                <button className={classes.placableForMany} onClick={ this.switchEmptyFieldsPlacable }>Change placable for all empty fields</button>
                 <button className={classes.symulation}>Symulation</button>
                 <button className={classes.add} onClick={this.modifyMapTemplate}>Modify</button>
                 <Route className={classes.ret} path="/map/template/modify" exact render={() => <button><Link to="/">Return</Link></button>} />

@@ -8,11 +8,12 @@
     "map inputs"
     "map items"
     "map placable"
+    "map placableForMany"
     "map symulation"
     "map add"
     "map ret";
     grid-template-columns: 75% 25%;
-    grid-template-rows: 8% 13% 59% repeat(4, 5%);
+    grid-template-rows: 8% 13% 54% repeat(5, 5%);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
   }
@@ -34,6 +35,9 @@
   }
   .placable {
     grid-area: placable;
+  }
+  .placableForMany {
+    grid-area: placableForMany;
   }
   .symulation {
     grid-area: symulation;
