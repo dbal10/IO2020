@@ -45,7 +45,7 @@ class MapTemplateCreate extends Component {
         }
         let newItems = this.state.allItems.map(item => {
             let x = JSON.parse(JSON.stringify(item));
-            x.avaliable = false;
+            x.avaliable = true;
             return x;
         })
         this.setState({ fields: newFields });

@@ -70,6 +70,21 @@ const reducer = (state = initialState, action) => {
                     }
                 )
             }
+        case 'MODIFYMAP':
+            const newMaps2 = state.maps.filter(map => map.id !== action.id);
+            return {
+                ...state,
+                maps: newMaps2.concat(
+                    {
+                        id: action.id,
+                        mapName: action.mapName,
+                        money: action.money,
+                        temperature: action.temperature,
+                        fields: action.fields,
+                        userItems: action.userItems
+                    }
+                )
+            }
         default:
             return state
     }

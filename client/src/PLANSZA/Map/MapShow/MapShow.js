@@ -50,18 +50,7 @@ class MapShow extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items.map((item, i) => {
-            let x = JSON.parse(JSON.stringify(item));
-            let y = state.maps[0].userItems.find(userItem => {
-                return userItem.id === x.id
-            })
-            if (y) {
-                x.avaliable = true;
-            } else {
-                x.avaliable = false;
-            }
-            return x;
-        }).filter(item => { return item.avaliable }),
+        items: state.maps[0].userItems,
         id: state.maps[0].id,
         mapName: state.maps[0].mapName,
         money: state.maps[0].money,

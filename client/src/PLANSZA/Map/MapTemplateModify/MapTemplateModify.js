@@ -23,7 +23,18 @@ class MapTemplateModify extends Component {
     state = {
         id: this.props.id,
         fields: this.props.fields,
-        allItems: this.props.items,
+        allItems: this.props.items.map((item, i) => {
+            let x = JSON.parse(JSON.stringify(item));
+            let y = this.props.userItems.find( userItem => {
+                return userItem.id === x.id
+            })
+            if (y) {
+                x.avaliable = true;
+            } else {
+                x.avaliable = false;
+            }
+            return x;
+        }),
         money: this.props.money,
         temperature: this.props.temperature,
         mapName: this.props.mapName,
@@ -289,18 +300,8 @@ class MapTemplateModify extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items.map((item, i) => {
-            let x = JSON.parse(JSON.stringify(item));
-            let y = state.maps[0].userItems.find( userItem => {
-                return userItem.id === x.id
-            })
-            if (y) {
-                x.avaliable = true;
-            } else {
-                x.avaliable = false;
-            }
-            return x;
-        }),
+        items: state.items,
+        userItems: state.maps[0].userItems,
         id: state.maps[0].id,
         mapName: state.maps[0].mapName,
         money: state.maps[0].money,
