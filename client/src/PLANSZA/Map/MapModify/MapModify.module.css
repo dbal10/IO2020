@@ -1,0 +1,45 @@
+
+   .container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-areas: 
+    "map inputs"
+    "map items"
+    "map placable"
+    "map symulation"
+    "map add"
+    "map ret";
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 15% 65% repeat(4, 5%);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+  .container > div {
+    border: 1px dashed #888;
+  }
+  
+  .map {
+    grid-area: map;
+  }
+  .inputs {
+    grid-area: inputs;
+  }
+  .items {
+    grid-area: items;
+  }
+  .placable {
+    grid-area: placable;
+  }
+  .symulation {
+    grid-area: symulation;
+  }
+  .add {
+    grid-area: add;
+  }
+  .ret {
+    grid-area: ret;
+  }
+  .clicked {
+    box-shadow: inset 0 0 0 50px rgb(15, 224, 25, 0.2);
+}

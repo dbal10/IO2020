@@ -29,29 +29,6 @@ class MapTemplateModify extends Component {
         modalShow: false,
     }
 
-    // createEmptyFields = () => {
-    //     let newFields = [];
-    //     for (let i = 0; i < length; i++) {
-    //         for (let j = 0; j < width; j++) {
-    //             newFields = [
-    //                 ...newFields,
-    //                 {
-    //                     item: null,
-    //                     partOfItem: false,
-    //                     placable: false
-    //                 }
-    //             ]
-    //         }
-    //     }
-    //     let newItems = this.state.allItems.map(item => {
-    //         let x = JSON.parse(JSON.stringify(item));
-    //         x.avaliable = false;
-    //         return x;
-    //     })
-    //     this.setState({ fields: newFields });
-    //     this.setState({ allItems: newItems });
-    // }
-
     addParam = (event, param) => {
         switch (param) {
             case "mapName":

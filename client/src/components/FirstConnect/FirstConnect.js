@@ -7,6 +7,7 @@ import ItemModify from '../../PLANSZA/Item/ItemModify/ItemModify';
 import MapTemplateCreate from '../../PLANSZA/Map/MapTemplateCreate/MapTemplateCreate';
 import MapTemplateModify from '../../PLANSZA/Map/MapTemplateModify/MapTemplateModify';
 import MapModify from '../../PLANSZA/Map/MapModify/MapModify';
+import MapShow from '../../PLANSZA/Map/MapShow/MapShow';
 
 class FirstComponent extends Component {
     state = {
@@ -31,6 +32,7 @@ class FirstComponent extends Component {
                         <Route path="/" exact render={() => <li><Link to="/map/template/create">Create Map Template</Link></li>}/>
                         <Route path="/" exact render={() => <li><Link to="/map/template/modify">Modify Map Template</Link></li>}/>
                         <Route path="/" exact render={() => <li><Link to="/map/modify">Modify Map</Link></li>}/>
+                        <Route path="/" exact render={() => <li><Link to="/map/show">Show Map</Link></li>}/>
                     </nav>
                 </div>
                 <Route path='/item/create' exact component={ItemCreate} />
@@ -38,6 +40,7 @@ class FirstComponent extends Component {
                 <Route path='/map/template/create' exact component={MapTemplateCreate} />
                 <Route path='/map/template/modify' exact component={MapTemplateModify} />
                 <Route path='/map/modify' exact component={MapModify} />
+                <Route path='/map/show' exact component={MapShow} />
             </div>
         );
     }

@@ -11,19 +11,19 @@ class ItemCreate extends Component {
     state = {
         file: null,
         fileToShow: null,
-        itemName: null,
-        width: null,
-        length: null,
-        realHeight: null,
-        price: null,
+        itemName: '',
+        width: 0,
+        length: 0,
+        realHeight: 0,
+        price: 0,
         type: null,
         modalShow: false
     }
 
     addItemImage = (event) => {
         this.setState({
-            fileToShow: URL.createObjectURL(event.target.files[0]),
-            file: event.target.files[0]
+            file: event.target.files[0],
+            fileToShow: URL.createObjectURL(event.target.files[0])
         })
     }
 
@@ -66,12 +66,11 @@ class ItemCreate extends Component {
     addItem = () => {
         if (
             this.state.file === null
-            || this.state.itemName === null
             || this.state.itemName === ''
-            || this.state.width === null
-            || this.state.length === null
-            || this.state.realHeight === null
-            || this.state.price === null
+            || this.state.width === 0
+            || this.state.length === 0
+            || this.state.realHeight === 0
+            || this.state.price === 0
             || this.state.type === null
         ) {
             this.setState({ modalShow: true })
