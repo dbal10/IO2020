@@ -6,6 +6,7 @@ import Grid from '../REusable/Grid/Grid';
 import classes from './MapTemplateCreate.module.css';
 import MapTemplateInputs from '../REusable/MapTemplateInputs/MapTemplateInputs';
 import ItemsList from '../REusable/ItemsList/ItemsList';
+import Modal from '../../UI/Modal/Modal';
 
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
@@ -23,7 +24,8 @@ class MapTemplateCreate extends Component {
         allItems: this.props.items,
         money: null,
         temperature: null,
-        mapName: null
+        mapName: null,
+        modalShow: false,
     }
 
     createEmptyFields = () => {
@@ -247,10 +249,29 @@ class MapTemplateCreate extends Component {
     switchToPlacable = () => {
         activatePlacable = !activatePlacable;
     }
+    
+    modalClosed = () => {
+        this.setState({ modalShow: false })
+    }
+
+    addMapTemplate = () => {
+        if (
+            this.state.fields === []
+            || this.state.money === null
+            || this.state.temperature === null
+            || this.state.mapName === null
+            || this.state.mapName === ''
+        ) {
+            this.setState({ modalShow: true })
+        } else { this.props.addMapTemplate(this.state); }
+    }
 
     render() {
         return (
             <div className={classes.container}>
+                <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
+                    <p>Make map, fill name, money and temperature</p>
+                </Modal>
                 <div className={classes.map}>
                     <Grid clicked={this.fieldClicked} fields={this.state.fields} />
                 </div>
@@ -266,7 +287,7 @@ class MapTemplateCreate extends Component {
                 </div>
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
                 <button className={classes.symulation}>Symulation</button>
-                <button className={classes.add}>Add</button>
+                <button className={classes.add} onClick={this.addMapTemplate}>Add</button>
                 <Route className={classes.ret} path="/map/template/create" exact render={() => <button><Link to="/">Return</Link></button>} />
             </div>
         );
@@ -279,20 +300,18 @@ const mapStateToProps = state => {
     };
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         modifyItem: (x) => dispatch({
-//             type: 'MODIFYITEM',
-//             id: x.id,
-//             file: x.file,
-//             itemName: x.itemName,
-//             width: x.width,
-//             length: x.length,
-//             realHeight: x.realHeight,
-//             price: x.price,
-//             itemType: x.type
-//         })
-//     };
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        addMapTemplate: (x) => dispatch({
+            type: 'CREATEMAPTEMPLATE',
+            mapName: x.mapName,
+            money: x.money,
+            temperature: x.temperature,
+            fields: x.fields,
+            userItems: x.allItems.filter(item => { return item.avaliable }),
+            cokolwiek: x.mapName
+        })
+    };
+}
 
-export default connect(mapStateToProps)(MapTemplateCreate);
+export default connect(mapStateToProps, mapDispatchToProps)(MapTemplateCreate);

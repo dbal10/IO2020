@@ -2,8 +2,8 @@ import uuid from 'react-uuid';
 
 const initialState = {
     info: 'Redux and react-redux connected',
-    items : [],
-    maps : []
+    items: [],
+    maps: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +25,7 @@ const reducer = (state = initialState, action) => {
                 )
             }
         case 'MODIFYITEM':
-            const newItems = state.items.filter(item => item.id === action.id);
+            const newItems = state.items.filter(item => item.id !== action.id);
             return {
                 ...state,
                 items: newItems.concat(
@@ -38,6 +38,35 @@ const reducer = (state = initialState, action) => {
                         realHeight: action.realHeight,
                         price: action.price,
                         itemType: action.itemType
+                    }
+                )
+            }
+        case 'CREATEMAPTEMPLATE':
+            return {
+                ...state,
+                maps: state.maps.concat(
+                    {
+                        id: uuid(),
+                        mapName: action.mapName,
+                        money: action.money,
+                        temperature: action.temperature,
+                        fields: action.fields,
+                        userItems: action.userItems
+                    }
+                )
+            }
+        case 'MODIFYMAPTEMPLATE':
+            const newMaps = state.maps.filter(map => map.id !== action.id);
+            return {
+                ...state,
+                maps: newMaps.concat(
+                    {
+                        id: action.id,
+                        mapName: action.mapName,
+                        money: action.money,
+                        temperature: action.temperature,
+                        fields: action.fields,
+                        userItems: action.userItems
                     }
                 )
             }
