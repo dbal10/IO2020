@@ -6,7 +6,7 @@ class Simulation {
     mapX = 100,
     mapY = 100,
     range = 7,
-    factor = 0.0001
+    impactFactor = 0.0001
   ) {
     this.items = items;
     this.initialTemperature = initialTemperature;
@@ -14,7 +14,7 @@ class Simulation {
     this.mapX = mapX;
     this.mapY = mapY;
     this.range = range;
-    this.factor = factor;
+    this.factor = impactFactor;
 
     this.grids = this.prepareGrid();
   }
@@ -97,7 +97,13 @@ class Simulation {
     this.computeAi();
     for (let item of this.items) {
       item.temperatureImpact = (item.Ai - 1) * this.initialTemperature;
+      item.temperature = item.Ai * this.initialTemperature;
+      delete item.SVF;
+      delete item.Fveg;
+      delete item.Fbuild;
+      delete item.Ai;
     }
+
     return this.items;
   }
 
@@ -173,7 +179,7 @@ class Simulation {
       sum /
       ((area.xk - area.xp + 1) * (area.yk - area.yp + 1) -
         item.length * item.width);
-    item.SVF = Math.cos(Math.atan(sum / this.range));
+    item.SVF = Math.cos(Math.atan((sum / this.range) * this.step));
     // }
   }
 
