@@ -1,7 +1,5 @@
 import React from 'react';
 
-import classes from './MapTemplateInputs.module.css';
-
 const mapTemplateInputs = (props) => {
     return (
         // <div className={classes.Inputs}>

@@ -7,13 +7,6 @@ import classes from './MapShow.module.css';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
 
-
-// jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
-// const width = 100;
-// const length = 100;
-const width = 10;
-const length = 10;
-
 class MapShow extends Component {
     state = {
         id: this.props.id,

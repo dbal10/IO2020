@@ -237,7 +237,6 @@ const mapStateToProps = state => {
     };
 };
 
-///////////////////////////////////////////////
 const mapDispatchToProps = dispatch => {
     return {
         modifyMap: (x) => dispatch({
