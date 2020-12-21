@@ -13,21 +13,26 @@ const inputSection = (props) => (
         <label>Width</label>
         <input
             type="number"
+            min='1'
             value={props.values.width} onChange={(event) => props.handleChange(event, "width")}>
         </input>
         <label>Length</label>
         <input
             type="number"
+            min='1'
             value={props.values.length} onChange={(event) => props.handleChange(event, "length")}>
         </input>
         <label>Real Height</label>
         <input
             type="number"
+            step="0.01"
+            min='0.01'
             value={props.values.realHeight} onChange={(event) => props.handleChange(event, "realHeight")}>
         </input>
         <label>Price</label>
         <input
             type="number"
+            min='1'
             value={props.values.price} onChange={(event) => props.handleChange(event, "price")}>
         </input>
         <label >Type</label>

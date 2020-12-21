@@ -3,14 +3,14 @@ import React from 'react';
 import classes from './ImageSection.module.css';
 
 const imageSection = (props) => (
-    <div className={classes.ImageSection}>
+    <form className={classes.ImageSection} onChange={props.handleChange} >
         <div>
-            <img src={props.file} />
+            <img src={`data:image/jpeg;base64,${props.file}`} />
         </div>
         <div>
-            <input type="file" accept="image/*" onChange={props.handleChange} />
+            <input type="file" accept="image/*" />
         </div>
-    </div>
+    </form>
 );
 
 export default imageSection;

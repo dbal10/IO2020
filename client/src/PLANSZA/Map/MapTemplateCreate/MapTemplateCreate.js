@@ -37,6 +37,7 @@ class MapTemplateCreate extends Component {
                     ...newFields,
                     {
                         item: null,
+                        image: null,
                         partOfItem: false,
                         placable: false
                     }

@@ -21,10 +21,19 @@ class ItemCreate extends Component {
     }
 
     addItemImage = (event) => {
-        this.setState({
-            file: event.target.files[0],
-            fileToShow: URL.createObjectURL(event.target.files[0])
-        })
+        const file = event.target.files[0];
+        console.log(file);
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                this.setState({
+                    file: btoa(reader.result)
+                })                
+            }
+        } 
+
+        reader.readAsBinaryString(file);
     }
 
     addParam = (event, param) => {
@@ -87,7 +96,7 @@ class ItemCreate extends Component {
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
                     <p>Fill all fields and chose image</p>
                 </Modal>
-                <ImageSection file={this.state.fileToShow} handleChange={this.addItemImage} />
+                <ImageSection file={this.state.file} handleChange={this.addItemImage} onFIleSubmit={this.onFIleSubmit} />
                 <InputSection values={this.state} handleChange={this.addParam} />
                 <div className={classes.ButtonsPosition}>
                     <button onClick={this.addItem}>Create</button>

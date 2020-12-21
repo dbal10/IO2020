@@ -11,7 +11,7 @@ class Item extends Component {
             field = <button className={classes.placable} id={this.props.itemKey} onClick={this.props.clicked} >
                 <div id={this.props.itemKey} className={classes.row}>
                     <div id={this.props.itemKey} className={classes.col}>
-                        <div id={this.props.itemKey} >Image</div>
+                        <img style={{maxWidth: 100, maxHeight: 100}} id={this.props.itemKey} src={`data:image/jpeg;base64,${this.props.item.file}`} />
                     </div>
                     <div id={this.props.itemKey} className={classes.col}>
                         <div id={this.props.itemKey}>Name: {this.props.item.itemName}</div>
@@ -24,7 +24,7 @@ class Item extends Component {
             field = <button className={classes.unplacable} id={this.props.itemKey} onClick={this.props.clicked} >
                 <div id={this.props.itemKey} className={classes.row}>
                     <div id={this.props.itemKey} className={classes.col}>
-                        <div id={this.props.itemKey} >Image</div>
+                        <img style={{maxWidth: 100, maxHeight: 100}} id={this.props.itemKey} src={`data:image/jpeg;base64,${this.props.item.file}`} />
                     </div>
                     <div id={this.props.itemKey} className={classes.col}>
                         <div id={this.props.itemKey}>Name: {this.props.item.itemName}</div>
