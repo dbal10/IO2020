@@ -12,6 +12,7 @@ export default function DeleteM() {
         <div id="del">
             <button id="del" onClick={() => itemManager.deleteItem("a")}>DelI</button>
             <button id="del" onClick={() => mapManager.deleteMap("a")}>DelM</button>
+            <button id="del" onClick={() => mapManager.deleteMapTemplate("a")}>DelMT</button>
         </div>
     )
 }

@@ -12,7 +12,7 @@ export default function PostM() {
         data : {
             id: 'a',
             file: 'jan pawel 222222',
-            itemName: 'gf',
+            itemName: 'gfl',
             width: 2137,
             length: 13,
             realHeight: 6.9,
@@ -28,6 +28,7 @@ export default function PostM() {
         <div id="post">
             <button id="post" onClick={() => itemManager.saveItem(state.data) }>PostI</button>
             <button id="post" onClick={() => mapManager.saveMap(state.data) }>PostM</button>
+            <button id="post" onClick={() => mapManager.saveMapTemplate(state.data) }>PostMT</button>
         </div>
     )
 }

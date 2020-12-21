@@ -13,6 +13,8 @@ export default function GetM() {
             <button id="getm" onClick={() => itemManager.getItemById("lol123")}>GetItem</button>
             <button id="getm" onClick={mapManager.getAllMaps}>GetMaps</button>
             <button id="getm" onClick={() => itemManager.getMapById("lol123")}>GetMap</button>
+            <button id="getm" onClick={mapManager.getAllMapTemplates}>GetMapTemplates</button>
+            <button id="getm" onClick={() => itemManager.getMapTemplateById("lol123")}>GetMapTemplate</button>
         </div>
     )
 }
