@@ -1,12 +1,15 @@
 import React from 'react'
 import './css/MapList.css';
+import GetM from "../components/Firebase/GetM";
+// import getAllMaps from "./MapManager";
 
-function MapsList(props) {
+function List(props) {
     const maps = props.maps;
     const listItems = maps.map((map) =>
         <React.Fragment>
             <div class="containerMaps">
-            <li style={{display: 'inline-block'}}>{map}</li>
+            {/* style={{display: 'inline-block'}} */}
+            <li className="listElem">{map}</li>
             <button type="button" class="btn">Podgląd mapy</button>
             </div>
         </React.Fragment>
@@ -18,10 +21,15 @@ function MapsList(props) {
 
 const maps = [`Pierwsza mapa`, `Druga mapa`, `Trzecia mapa`, `Czwarta mapa`, `Piata mapa`];
 
-class HelloWorld extends React.Component {
+class MapList extends React.Component {
     render() {
-        return <MapsList maps={maps} />
+        return (
+        <React.Fragment>
+        <List maps={maps} />
+        <GetM/>
+        </React.Fragment>
+        )
     }
 }
 
-export default HelloWorld
+export default MapList

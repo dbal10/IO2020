@@ -2,8 +2,8 @@ import React from 'react'
 import './css/ObjectList.css';
 
 function List(props) {
-    const objects = props.objects;
-    const listItems = objects.map((object) =>
+    const templates = props.templates;
+    const listItems = templates.map((object) =>
         <React.Fragment>
             <li class="listElement">{object}</li>
         </React.Fragment>
@@ -13,18 +13,18 @@ function List(props) {
     );
 }
 
-const objects = [`1`, `2`, `3`, `4`, `5`, '6', '7', '8', '9', '10', '11','12', '13', '14', '15', '16'];
+const templates = [`a`, `b`, `c`, `d`, `e`, 'f', 'g', 'h', 'i', 'j', 'k','l', 'm', 'n', 'o', 'p'];
 
 function Menu(props){
     return (
         <React.Fragment>
         <div class="grid">
-        <div class="objects">
-        <List objects={objects} />
+        <div class="templates">
+        <List templates={templates} />
         </div>
         <div class="side-bar">
             <button className="btn btnObj">Konto</button>
-            <p class="description">opis obiektu</p>
+            <p class="description">informacja o mapie</p>
             <button className="btn btnObj">Edytuj</button>
             <button className="btn btnObj">Usuń</button>
             <button className="btn btnObj">Stwórz nową</button>
@@ -34,10 +34,10 @@ function Menu(props){
     )
 }
 
-class ObjectList extends React.Component {
+class MapTemplates extends React.Component {
     render() {
         return <Menu />
     }
 }
 
-export default ObjectList
+export default MapTemplates

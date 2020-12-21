@@ -11,6 +11,8 @@ import MainView from "./Admin/MainView";
 import MapManager from "./Admin/MapManager";
 import UserBrowseView from "./Admin/UserBrowseView";
 import UserListItem from "./Admin/UserListItem";
+import MapTemplates from "./Admin/MapTemplates";
+import ArchiveMaps from "./Admin/ArchiveMaps";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -25,12 +27,15 @@ function App() {
       <Route path="/MainView" component = {MainView}/>
       <Route path="/UserBrowseView" component = {UserBrowseView}/>
       <Route path="/UserListItem" component = {UserListItem}/>
+      <Route path="/MapTemplates" component = {MapTemplates}/>
+      <Route path="/ArchiveMaps" component = {ArchiveMaps}/>
     </Switch>
 
     <BrowserRouter>
       <div className="App">
         <FirstConnect />
       </div>
+      <Firebase></Firebase>
     </BrowserRouter>
     </Router>
   );
