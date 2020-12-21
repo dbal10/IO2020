@@ -72,9 +72,145 @@ class MapTemplateModify extends Component {
         newFields[mainField].item = null;
     }
 
+
+    placeItem = (newFields, mainField) => {
+        for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
+            for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
+                const x = (j * length) + i + mainField;
+                newFields[x].item = null;
+                newFields[x].partOfItem = true;
+            }
+        }
+    }
+
+    chcekFit = (mainFIled) => {
+        // check if item fit in chosen place on width
+        if ((width - this.state.allItems[chosenItemKey].width) >= (mainFIled % width)) {
+            // check if item fit in chosen place on length
+            if ((length - this.state.allItems[chosenItemKey].length) >= Math.floor(mainFIled / length)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    checkItemsToRemove = (newFields, mainField) => {
+        // check if, on some of fields, fillen by chosen item, are placed other items and remove them
+        // (if they are multi fields, remove it's partOfItem feilds)
+        for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
+            for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
+                const partialField = (j * length) + i + mainField;
+
+                // // if field is not a partOfItem, possibly an item
+                // if (!newFields[partialField].partOfItem) {
+                if (newFields[partialField].item != null) {
+                    this.removeItem(newFields, partialField);
+                }
+
+            }
+        }
+
+        // if boundary field is a partOfItem, then this item, main field, is out of range, of item to place
+        // remove this item
+        // chcek width above
+        for (let i = 1; i < this.state.allItems[chosenItemKey].width; i++) {
+            let ySearch = Math.floor(mainField / length);
+
+            if (newFields[mainField + i].partOfItem) {
+                for (let j = 1; j <= ySearch; j++) {
+                    if (newFields[mainField + i - j * length].item !== null) {
+                        if (newFields[mainField + i - j * length].item.width > i
+                            && newFields[mainField + i - j * length].item.length > j) {
+                            this.removeItem(newFields, mainField + i - j * length);
+                        }
+                    }
+                }
+            }
+        }
+
+        // check length left
+        for (let j = 1; j < this.state.allItems[chosenItemKey].length; j++) {
+            let xSearch = mainField % width;
+
+            if (newFields[mainField + j * length].partOfItem) {
+                for (let i = 1; i <= xSearch; i++) {
+                    if (newFields[mainField + j * length - i].item !== null) {
+                        if (newFields[mainField + j * length - i].item.width > i
+                            && newFields[mainField + j * length - i].item.length > j) {
+                            this.removeItem(newFields, mainField + j * length - i);
+                        }
+                    }
+                }
+            }
+        }
+
+        // check left top corner
+        if (newFields[mainField].partOfItem) {
+            let xSearch = mainField % width;
+            let ySearch = Math.floor(mainField / length);
+
+            for (let i = 0; i <= xSearch; i++) {
+                for (let j = 0; j <= ySearch; j++) {
+                    if (i !== 0 || j !== 0) {
+                        const fieldToCheck = mainField - i - j * length;
+                        if (newFields[fieldToCheck].item !== null) {
+                            if (newFields[fieldToCheck].item.width > i
+                                && newFields[fieldToCheck].item.length > j) {
+                                this.removeItem(newFields, fieldToCheck);
+                                i = xSearch + 1;
+                                j = ySearch + 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // change placable for whole item if key is the main field
+    changePlacableMainField = (newFields, key, mainplacable) => {
+        if (newFields[key].item !== null) {
+            for (let i = 0; i < newFields[key].item.width; i++) {
+                for (let j = 0; j < newFields[key].item.length; j++) {
+                    const changedItemsField = (j * length) + i + key;
+                    newFields[changedItemsField].placable = mainplacable;
+                }
+            }
+        }
+    }
+
+    // if key is a partOfItem find main field and change placable for whole item
+    changePlacablePartOfItem = (newFields, key, mainplacable) => {
+        if (newFields[key].partOfItem) {
+            let xSearch = key % width;
+            let ySearch = Math.floor(key / length);
+
+            for (let i = 0; i <= xSearch; i++) {
+                for (let j = 0; j <= ySearch; j++) {
+                    if (i !== 0 || j !== 0) {
+                        const fieldToCheck = key - i - j * length;
+                        if (newFields[fieldToCheck].item !== null) {
+                            if (newFields[fieldToCheck].item.width > i
+                                && newFields[fieldToCheck].item.length > j) {
+                                for (let i2 = 0; i2 < newFields[fieldToCheck].item.width; i2++) {
+                                    for (let j2 = 0; j2 < newFields[fieldToCheck].item.length; j2++) {
+                                        const changedItemsField = (j2 * length) + i2 + fieldToCheck;
+                                        newFields[changedItemsField].placable = mainplacable;
+                                    }
+                                }
+                                i = xSearch + 1;
+                                j = ySearch + 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     fieldClicked = (event) => {
 
-        let newFields = [...this.state.fields];
+        const newFields = [...this.state.fields];
         const key = parseInt(event.target.id);
 
         // change the placability for user
@@ -83,41 +219,10 @@ class MapTemplateModify extends Component {
             const mainplacable = !newFields[key].placable;
 
             // change placable for whole item if key is the main field
-            if (newFields[key].item !== null) {
-                for (let i = 0; i < newFields[key].item.width; i++) {
-                    for (let j = 0; j < newFields[key].item.length; j++) {
-                        const changedItemsField = (j * length) + i + key;
-                        newFields[changedItemsField].placable = mainplacable;
-                    }
-                }
-            }
+            this.changePlacableMainField(newFields, key, mainplacable);
 
             // if key is a partOfItem find main field and change placable for whole item
-            if (newFields[key].partOfItem) {
-                let xSearch = key % width;
-                let ySearch = Math.floor(key / length);
-
-                for (let i = 0; i <= xSearch; i++) {
-                    for (let j = 0; j <= ySearch; j++) {
-                        if (i !== 0 || j !== 0) {
-                            const fieldToCheck = key - i - j * length;
-                            if (newFields[fieldToCheck].item !== null) {
-                                if (newFields[fieldToCheck].item.width > i
-                                    && newFields[fieldToCheck].item.length > j) {
-                                    for (let i2 = 0; i2 < newFields[fieldToCheck].item.width; i2++) {
-                                        for (let j2 = 0; j2 < newFields[fieldToCheck].item.length; j2++) {
-                                            const changedItemsField = (j2 * length) + i2 + fieldToCheck;
-                                            newFields[changedItemsField].placable = mainplacable;
-                                        }
-                                    }
-                                    i = xSearch + 1;
-                                    j = ySearch + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            this.changePlacablePartOfItem(newFields, key, mainplacable)
 
             newFields[key].placable = mainplacable;
         }
@@ -131,93 +236,20 @@ class MapTemplateModify extends Component {
                 if (chosenItemKey != null) {
 
                     // check if item fit in chosen place on width
-                    if ((width - this.state.allItems[chosenItemKey].width) >= (key % width)) {
-                        // check if item fit in chosen place on length
-                        if ((length - this.state.allItems[chosenItemKey].length) >= Math.floor(key / length)) {
+                    // check if item fit in chosen place on length
+                    if (this.chcekFit(key)) {
 
-                            // check if, on some of fields, fillen by chosen item, are placed other items and remove them
-                            // (if they are multi fields, remove it's partOfItem feilds)
-                            for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
-                                for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
-                                    const partialField = (j * length) + i + key;
+                        // check if, on some of fields, fillen by chosen item, are placed other items and remove them
+                        // (if they are multi fields, remove it's partOfItem feilds)
+                        // if boundary field is a partOfItem, then this item, main field, is out of range, of item to place
+                        // remove this item
+                        this.checkItemsToRemove(newFields, key);
 
-                                    // // if field is not a partOfItem, possibly an item
-                                    // if (!newFields[partialField].partOfItem) {
-                                    if (newFields[partialField].item != null) {
-                                        this.removeItem(newFields, partialField);
-                                    }
+                        // place item
+                        this.placeItem(newFields, key);
 
-                                }
-                            }
-
-                            // if boundary field is a partOfItem, then this item, main field, is out of range, of item to place
-                            // remove this item
-                            // chcek width above
-                            for (let i = 1; i < this.state.allItems[chosenItemKey].width; i++) {
-                                let ySearch = Math.floor(key / length);
-
-                                if (newFields[key + i].partOfItem) {
-                                    for (let j = 1; j <= ySearch; j++) {
-                                        if (newFields[key + i - j * length].item !== null) {
-                                            if (newFields[key + i - j * length].item.width > i
-                                                && newFields[key + i - j * length].item.length > j) {
-                                                this.removeItem(newFields, key + i - j * length);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            // check length left
-                            for (let j = 1; j < this.state.allItems[chosenItemKey].length; j++) {
-                                let xSearch = key % width;
-
-                                if (newFields[key + j * length].partOfItem) {
-                                    for (let i = 1; i <= xSearch; i++) {
-                                        if (newFields[key + j * length - i].item !== null) {
-                                            if (newFields[key + j * length - i].item.width > i
-                                                && newFields[key + j * length - i].item.length > j) {
-                                                this.removeItem(newFields, key + j * length - i);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            // check left top corner
-                            if (newFields[key].partOfItem) {
-                                let xSearch = key % width;
-                                let ySearch = Math.floor(key / length);
-
-                                for (let i = 0; i <= xSearch; i++) {
-                                    for (let j = 0; j <= ySearch; j++) {
-                                        if (i !== 0 || j !== 0) {
-                                            const fieldToCheck = key - i - j * length;
-                                            if (newFields[fieldToCheck].item !== null) {
-                                                if (newFields[fieldToCheck].item.width > i
-                                                    && newFields[fieldToCheck].item.length > j) {
-                                                    this.removeItem(newFields, fieldToCheck);
-                                                    i = xSearch + 1;
-                                                    j = ySearch + 1;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            // place item
-                            for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
-                                for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
-                                    const x = (j * length) + i + key;
-                                    newFields[x].item = null;
-                                    newFields[x].partOfItem = true;
-                                }
-                            }
-
-                            newFields[key].partOfItem = false;
-                            newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
-                        }
+                        newFields[key].partOfItem = false;
+                        newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
                     }
                 }
             }
@@ -269,6 +301,8 @@ class MapTemplateModify extends Component {
         } else { this.props.modifyMapTemplate(this.state); }
     }
 
+    simulate = () => {}
+    
     render() {
         return (
             <div className={classes.container}>
@@ -290,7 +324,7 @@ class MapTemplateModify extends Component {
                 </div>
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
                 <button className={classes.placableForMany} onClick={ this.switchEmptyFieldsPlacable }>Change placable for all empty fields</button>
-                <button className={classes.symulation}>Symulation</button>
+                <button className={classes.symulation} onClick={ this.simulate }>Simulation</button>
                 <button className={classes.add} onClick={this.modifyMapTemplate}>Modify</button>
                 <Route className={classes.ret} path="/map/template/modify" exact render={() => <button><Link to="/">Return</Link></button>} />
             </div>

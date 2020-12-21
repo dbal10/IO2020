@@ -38,12 +38,11 @@ const inputSection = (props) => (
             onChange={(event) => props.handleChange(event, "type")}
         />
         <datalist id="types">
-            <option value="Building" />
-            <option value="Plant" />
-            <option value="Water" />
-            <option value="Accesory" />
-            <option value="Road" />
-            <option value="Grass" />
+            <option value="building" />
+            <option value="vegetation" />
+            <option value="water" />
+            <option value="accessory" />
+            <option value="road" />
         </datalist>
     </div>
 );

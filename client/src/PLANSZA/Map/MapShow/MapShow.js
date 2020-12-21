@@ -17,6 +17,8 @@ class MapShow extends Component {
         mapName: this.props.mapName,
     }
 
+    simulate = () => {}
+
     render() {
         return (
             <div className={classes.container}>
@@ -34,7 +36,7 @@ class MapShow extends Component {
                 <div className={classes.items}>
                     <ItemsList clicked={this.itemClicked} items={this.state.allItems} />
                 </div>
-                <button className={classes.symulation}>Symulation</button>
+                <button className={classes.symulation} onClick={ this.simulate }>Simulation</button>
                 <Route className={classes.ret} path="/map/show" exact render={() => <button><Link to="/">Return</Link></button>} />
             </div>
         );
