@@ -5,11 +5,11 @@ function ObjectList(props) {
     const objects = props.objects;
     const listItems = objects.map((object) =>
         <React.Fragment>
-            <li>{object}</li>
+            <li class="listElement">{object}</li>
         </React.Fragment>
     );
     return (
-        <ul>{listItems}</ul>
+        <ul class="list">{listItems}</ul>
     );
 }
 

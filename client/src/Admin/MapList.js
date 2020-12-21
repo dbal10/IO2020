@@ -1,4 +1,5 @@
 import React from 'react'
+import './css/MapList.css';
 
 function MapsList(props) {
     const maps = props.maps;

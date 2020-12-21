@@ -1,45 +1,46 @@
-body{
+body {
     background-color: red;
-    
+    font-size: 2em;
+
 }
 
-.grid{
+.grid {
     background-color: pink;
     display: grid;
     grid-template-columns: 2fr 1fr;
     width: 80%;
     margin: auto;
     position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }
 
-li{
+.listElement {
     color: purple;
     width: 50px;
 }
 
-ul{
+.list {
     display: flex;
     padding: 20px;
     flex-wrap: wrap;
     font-size: 70px;
     background-color: orange;
-    
+
 }
 
-.side-bar{
-    display:flex;
+.side-bar {
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.description{
+.description {
     background-color: #fff;
     width: 80%;
     margin-left: 10%;
-    
+
 
 }

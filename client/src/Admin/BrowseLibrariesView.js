@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import AccountInfo from './AccountInfo'
 import './style.css'
+import { Link } from 'react-router-dom';
 
 class BrowseLibrariesView extends Component{
     render() {
@@ -8,14 +9,15 @@ class BrowseLibrariesView extends Component{
             <div>
                 <AccountInfo account='Dane Konta'/>
                 <button type="button" className="libraryButton" style={{backgroundColor: "#4CAF50"}} onClick={this.onMapTemplatesLibraryButtonCllick}></button>
-                <button type="button" className="libraryButton" style={{backgroundColor: "#008CBA"}} onClick={this.onItemsLibraryButtonCllick}>Items library</button>
-                <button type="button" className="libraryButton" style={{backgroundColor: "#F44336"}} onClick={this.onUsersMapsLibraryButtonCllick}>Users' maps library</button>
+                <Link to="/ObjectList"><button type="button" className="libraryButton" style={{backgroundColor: "#008CBA"}} onClick={this.onItemsLibraryButtonCllick}>Items library</button></Link>
+                <Link to="/UserBrowseView"><button type="button" className="libraryButton" style={{backgroundColor: "#F44336"}} onClick={this.onUsersMapsLibraryButtonCllick}>Users' maps library</button></Link>
             </div>
         )
     }
 
     onMapTemplatesLibraryButtonCllick(){
         console.log("przycisk1")
+         
     }
 
     onItemsLibraryButtonCllick(){
