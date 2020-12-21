@@ -6,7 +6,6 @@ class MainView extends Component{
             <div>
                 
             </div>
-
         )
     }
 }
