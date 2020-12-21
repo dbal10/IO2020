@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import FirstConnect from './components/FirstConnect/FirstConnect';
 import Firebase from "./components/Firebase/Firebase";
-import View1 from "./Admin/View1";
+import MapList from "./Admin/MapList";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -11,13 +11,12 @@ function App() {
     <Router>
 
     <Switch>
-      <Route path="/View1" component = {View1}/>
+      <Route path="/maplist" component = {MapList}/>
     </Switch>
 
     <BrowserRouter>
       <div className="App">
         <FirstConnect />
-        <Firebase/>
       </div>
     </BrowserRouter>
     </Router>
