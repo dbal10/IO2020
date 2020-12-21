@@ -7,7 +7,7 @@ class BrowseLibrariesView extends Component{
         return (
             <div>
                 <AccountInfo account='Dane Konta'/>
-                <button type="button" className="libraryButton" style={{backgroundColor: "#4CAF50"}} onClick={this.onMapTemplatesLibraryButtonCllick}>Map templates library</button>
+                <button type="button" className="libraryButton" style={{backgroundColor: "#4CAF50"}} onClick={this.onMapTemplatesLibraryButtonCllick}></button>
                 <button type="button" className="libraryButton" style={{backgroundColor: "#008CBA"}} onClick={this.onItemsLibraryButtonCllick}>Items library</button>
                 <button type="button" className="libraryButton" style={{backgroundColor: "#F44336"}} onClick={this.onUsersMapsLibraryButtonCllick}>Users' maps library</button>
             </div>
