@@ -19,7 +19,7 @@ function List(props) {
     );
 }
 
-const maps = [`Pierwsza mapa`, `Druga mapa`, `Trzecia mapa`, `Czwarta mapa`, `Piata mapa`];
+const maps = [`Pierwsza mapa`, `Druga mapa`, `Trzecia mapa`, `Czwarta mapa`, `Piata mapa`, `Szósta mapa`, `Siódma mapa`];
 
 class MapList extends React.Component {
     render() {
