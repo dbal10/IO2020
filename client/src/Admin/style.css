@@ -27,3 +27,39 @@
     margin: 10px;
     flex-direction: row
   }
+
+  .userListItem{
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+    display: flex;
+    text-align: left;
+    padding: 15px 32px;
+    background-color: #d6d6d6; 
+    font-size: 16px;
+    margin: 10px;
+    flex-direction: row;
+    margin: auto;
+    margin-block: 15px;
+    width: 80%;
+  }
+
+.userInfo{
+  text-align: center;
+  display: inline-flex;
+}
+
+.showUserMapsButton{
+    background-color: #e7ae11;
+    border: solid;
+    border-width: 0.5px;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    display: inline-flex;
+    justify-content: flex-end;
+    margin-right: 0px;
+    margin-left: auto;
+    float: right;
+    flex-direction: row
+}
