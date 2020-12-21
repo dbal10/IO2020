@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import {toPng} from 'html-to-image';
 
 import Grid from '../REusable/Grid/Grid';
 import classes from './MapShow.module.css';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
+
+var htmlToImage = require('html-to-image');
 
 class MapShow extends Component {
     state = {
@@ -17,6 +20,17 @@ class MapShow extends Component {
         mapName: this.props.mapName,
     }
 
+    //Metoda odpowiadajaca za pobieranie. Przeczytaj README, zeby dzialala u Ciebie Ancymonie Ty jeden Ty :* lofki
+    saveToJpeg() {
+        htmlToImage.toJpeg(document.getElementById('map'), { quality: 0.95 })
+        .then(function (dataUrl) {
+          var link = document.createElement('a');
+          link.download = 'Mapa.jpeg';
+          link.href = dataUrl;
+          link.click();
+        });
+    }
+
     simulate = () => {}
 
     render() {
@@ -25,7 +39,7 @@ class MapShow extends Component {
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
                     <p>Make map, fill name, money and temperature</p>
                 </Modal>
-                <div className={classes.map}>
+                <div className={classes.map} id='map'>
                     <Grid clicked={this.fieldClicked} fields={this.state.fields} />
                 </div>
                 <div className={classes.inputs}>
@@ -38,6 +52,8 @@ class MapShow extends Component {
                 </div>
                 <button className={classes.symulation} onClick={ this.simulate }>Simulation</button>
                 <Route className={classes.ret} path="/map/show" exact render={() => <button><Link to="/">Return</Link></button>} />
+
+                <button onClick={this.saveToJpeg}>ZAPISZ MNIE KOCHANIE! OH TAK DO JPEGA :*</button>
             </div>
         );
     }
