@@ -34,6 +34,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <FirstConnect />
+        <Firebase />
       </div>
       <Firebase></Firebase>
     </BrowserRouter>
