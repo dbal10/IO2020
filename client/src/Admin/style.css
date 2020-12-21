@@ -1,0 +1,29 @@
+.libraryButton{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    width: 90%;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-block: 15px;
+  }
+
+  .accountInfoBox{
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+    display: flex;
+    float: right;
+    padding: 15px 32px;
+    text-align: center;
+    background-color: #d6d6d6; 
+    font-size: 32px;
+    margin: 10px;
+    flex-direction: row
+  }
