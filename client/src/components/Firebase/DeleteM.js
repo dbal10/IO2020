@@ -1,38 +1,17 @@
 import React from 'react';
 import fire from "../../firebase";
+import ItemManager from "../../Admin/ItemManager"
+import MapManager from "../../Admin/MapManager"
 
 export default function DeleteM() {
 
-    //obiekt który będziemy chcieli usunąć
-    let state = {
-        data: {
-            id: 'test',
-            file: 'jan pawel 2',
-            itemName: 'gmd2',
-            width: 2137,
-            length: 13,
-            realHeight: 6.9,
-            price: 96,
-            itemType: 'no',
-        },
-    }
-
-    function DeleteM(obj) {
-        let name = obj.itemName.toString().valueOf();
-        const ref = fire.database().ref(`database/${name}`);
-        ref.remove();
-
-    }
+    let itemManager = new ItemManager;
+    let mapManager = new MapManager;
 
     return (
         <div id="del">
-            <button id="del"
-                    onClick={
-                        () => DeleteM(state.data)
-                    }
-            >DelM
-            </button>
-
+            <button id="del" onClick={() => itemManager.deleteItem("a")}>DelI</button>
+            <button id="del" onClick={() => mapManager.deleteMap("a")}>DelM</button>
         </div>
     )
 }
