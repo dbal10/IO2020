@@ -26,7 +26,7 @@ class MapTemplateCreate extends Component {
         money: 1000,
         temperature: 30,
         mapName: '',
-        modalShow: false,
+        modalShow: false
     }
 
     createEmptyFields = () => {
@@ -92,6 +92,7 @@ class MapTemplateCreate extends Component {
                 newFields[x].partOfItem = true;
             }
         }
+        this.changePlacableMainField(newFields, mainField);
     }
 
     chcekFit = (mainFIled) => {
