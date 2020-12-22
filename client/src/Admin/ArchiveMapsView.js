@@ -17,7 +17,7 @@ function List(props) {
     );
 }
 
-// const templates = [`a`, `b`, `c`, `d`, `e`, 'f', 'g', 'h', 'i', 'j', 'k','l', 'm', 'n', 'o', 'p'];
+// const templates = ['a' 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k','l', 'm', 'n', 'o', 'p'];
 
 function Menu(props){
     return (
@@ -28,10 +28,10 @@ function Menu(props){
         <List />
         </div>
         <div class="side-bar">
-            <button className="btn btnMap">Konto</button>
-            <p class="description">charakterystyka mapy</p>
-            <button className="btn btnMap">Usuń mapę</button>
-            <button className="btn btnMap">Wczytaj nową</button>
+        <button className="btn btnObj space">Konto</button>
+            <p class="description space">Charakterystyka mapy</p>
+            <button className="btn btnObj space">Usuń mapę</button>
+            <button className="btn btnObj space">Wczytaj nową</button>
         </div>
         </div>
         </React.Fragment>

@@ -13,7 +13,7 @@ function List(props) {
     );
 }
 
-const templates = [`a`, `b`, `c`, `d`, `e`, 'f', 'g', 'h', 'i', 'j', 'k','l', 'm', 'n', 'o', 'p'];
+const templates = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k','l', 'm', 'n', 'o', 'p'];
 
 function Menu(props){
     return (
@@ -24,7 +24,7 @@ function Menu(props){
         </div>
         <div class="side-bar">
             <button className="btn btnObj">Konto</button>
-            <p class="description">informacja o mapie</p>
+            <p class="description">Informacja o mapie</p>
             <button className="btn btnObj">Edytuj</button>
             <button className="btn btnObj">Usuń</button>
             <button className="btn btnObj">Stwórz nową</button>
