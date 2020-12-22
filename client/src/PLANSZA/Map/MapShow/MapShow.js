@@ -51,9 +51,9 @@ class MapShow extends Component {
                     <ItemsList clicked={this.itemClicked} items={this.state.allItems} />
                 </div>
                 <button className={classes.symulation} onClick={ this.simulate }>Simulation</button>
-                <Route className={classes.ret} path="/map/show" exact render={() => <button><Link to="/">Return</Link></button>} />
+                <Route path="/map/show" exact render={() => <button className={classes.ret}><Link to="/">Return</Link></button>} />
 
-                <button onClick={this.saveToJpeg}>Save as JPEG</button>
+                <button className={classes.save_to_image} onClick={this.saveToJpeg}>Save as JPEG</button>
             </div>
         );
     }

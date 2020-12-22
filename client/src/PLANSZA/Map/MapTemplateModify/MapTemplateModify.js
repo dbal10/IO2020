@@ -313,12 +313,14 @@ class MapTemplateModify extends Component {
                     <Grid clicked={this.fieldClicked} fields={this.state.fields} />
                 </div>
                 {/* <button className={classes.createmap} onClick={this.createEmptyFields}>Make empty Map</button> */}
-                <MapTemplateInputs
-                    className={classes.inputs}
-                    money={this.state.money}
-                    temperature={this.state.temperature}
-                    mapName={this.state.mapName}
-                    handleChange={this.addParam} />
+                <div className={classes.inputs}>
+                    <MapTemplateInputs
+                        money={this.state.money}
+                        temperature={this.state.temperature}
+                        mapName={this.state.mapName}
+                        handleChange={this.addParam} />                    
+                </div>
+
                 <div className={classes.items}>
                     <ItemsList clicked={this.itemClicked} items={this.state.allItems} />
                 </div>
@@ -326,7 +328,7 @@ class MapTemplateModify extends Component {
                 <button className={classes.placableForMany} onClick={ this.switchEmptyFieldsPlacable }>Change placable for all empty fields</button>
                 <button className={classes.symulation} onClick={ this.simulate }>Simulation</button>
                 <button className={classes.add} onClick={this.modifyMapTemplate}>Modify</button>
-                <Route className={classes.ret} path="/map/template/modify" exact render={() => <button><Link to="/">Return</Link></button>} />
+                <Route path="/map/template/modify" exact render={() => <button className={classes.ret}><Link to="/">Return</Link></button>} />
             </div>
         );
     }

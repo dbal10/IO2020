@@ -253,7 +253,7 @@ class MapModify extends Component {
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
                 <button className={classes.symulation} onClick={this.simulate}>Simulation</button>
                 <button className={classes.add} onClick={this.modifyMap}>Save</button>
-                <Route className={classes.ret} path="/map/modify" exact render={() => <button><Link to="/">Return</Link></button>} />
+                <Route path="/map/modify" exact render={() => <button className={classes.ret}><Link to="/">Return</Link></button>} />
             </div>
         );
     }

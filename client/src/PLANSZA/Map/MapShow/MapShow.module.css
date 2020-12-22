@@ -7,9 +7,10 @@
     "map inputs"
     "map items"
     "map symulation"
+    "map save_to_image"
     "map ret";
     grid-template-columns: 75% 25%;
-    grid-template-rows: 15% 75% repeat(2, 5%);
+    grid-template-rows: 15% 70% repeat(3, 5%);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
   }
@@ -28,6 +29,9 @@
   }
   .symulation {
     grid-area: symulation;
+  }
+  .save_to_image {
+    grid-area: save_to_image;
   }
   .ret {
     grid-area: ret;
