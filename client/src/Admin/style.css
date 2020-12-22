@@ -64,3 +64,12 @@
     flex-direction: row
 }
 
+.buttonLink{
+  display: inline-flex;
+    justify-content: flex-end;
+    margin-right: 0px;
+    margin-left: auto;
+    float: right;
+    flex-direction: row
+}
+

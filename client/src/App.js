@@ -8,7 +8,6 @@ import ObjectList from "./Admin/ObjectList";
 import AccountInfo from "./Admin/AccountInfo";
 import BrowseLibrariesView from "./Admin/BrowseLibrariesView";
 import MainView from "./Admin/MainView";
-import MapManager from "./Admin/MapManager";
 import UserBrowseView from "./Admin/UserBrowseView";
 import UserListItem from "./Admin/UserListItem";
 import MapTemplates from "./Admin/MapTemplates";
@@ -22,22 +21,13 @@ function App() {
     <Switch>
       <Route path="/maplist" component = {MapList}/>
       <Route path="/objectlist" component = {ObjectList}/>
-      <Route path="/AccountInfo" component = {AccountInfo}/>
       <Route path="/BrowseLibrariesView" component = {BrowseLibrariesView}/>
       <Route path="/MainView" component = {MainView}/>
       <Route path="/UserBrowseView" component = {UserBrowseView}/>
-      <Route path="/UserListItem" component = {UserListItem}/>
       <Route path="/MapTemplates" component = {MapTemplates}/>
       <Route path="/ArchiveMaps" component = {ArchiveMaps}/>
+      <Route path="/" component = {Firebase}/>
     </Switch>
-
-    <BrowserRouter>
-      <div className="App">
-        <FirstConnect />
-        <Firebase />
-      </div>
-      <Firebase></Firebase>
-    </BrowserRouter>
     </Router>
   );
 }

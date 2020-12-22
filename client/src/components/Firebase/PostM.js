@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import fire from "../../firebase";
 import ItemManager from "../../Admin/ItemManager"
 import MapManager from "../../Admin/MapManager"
 
@@ -10,13 +9,13 @@ export default function PostM() {
     //dane testowe jakie wysyłamy
     let state = {
         data : {
-            id: 'a',
-            file: 'jan pawel 222222',
-            itemName: 'gfl',
-            width: 2137,
-            length: 13,
-            realHeight: 6.9,
-            price: 96,
+            id: '123',
+            file: 'url',
+            itemName: 'test',
+            width: 100,
+            length: 100,
+            realHeight: 100,
+            price: 100,
             itemType: 'no',
         },
     }

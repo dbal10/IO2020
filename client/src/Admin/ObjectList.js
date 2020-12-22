@@ -26,7 +26,7 @@ function Menu(props){
         </div>
         <div class="side-bar">
             <button className="btn btnObj">Konto</button>
-            <p class="description">opis obiektu</p>
+            <p className="description">opis obiektu</p>
             <button className="btn btnObj">Edytuj</button>
             <button className="btn btnObj">Usuń</button>
             <button className="btn btnObj">Stwórz nową</button>

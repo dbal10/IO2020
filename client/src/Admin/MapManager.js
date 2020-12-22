@@ -4,38 +4,42 @@ class MapManager {
 
     saveMap(obj) {
         let id = obj.id.toString().valueOf();
-        fire.database().ref('database/maps').child(id).set(obj);
+        fire.database().ref('database/maps').child(id).set(obj).then(() => console.log("Save successful"));
     }
 
     saveMapTemplate(obj) {
          let id = obj.id.toString().valueOf();
-         fire.database().ref('database/maptemplates').child(id).set(obj);
+         fire.database().ref('database/maptemplates').child(id).set(obj).then(() => console.log("Save successful"));
     }
 
     getMapById(id){
         let val;
         fire.database().ref(`database/maps`).child(id)
-        .on("value", snapshot => { 
+        .once("value", snapshot => { 
             val = snapshot.val()
+            console.log(val)
+            return val
         })
-        return val
+        
     }
 
     getMapTemplateById(id){
         let val;
         fire.database().ref(`database/maptemplates`).child(id)
-        .on("value", snapshot => {
+        .once("value", snapshot => {
             val = snapshot.val()
+            console.log(val)
+            return val
         })
-        return val
+        
     }
 
     deleteMap(id){
-        fire.database().ref(`database/maps/${id}`).remove();
+        fire.database().ref('database/maps').child(id).remove().then(() => console.log("Delete Successful"));
     }
 
     deleteMapTemplate(id){
-        fire.database().ref(`database/maptemplates/${id}`).remove();
+        fire.database().ref('database/maptemplates').child(id).remove().then(() => console.log("Delete Successful"));
     }
 
     getAllMaps(){
@@ -45,9 +49,10 @@ class MapManager {
             snapshot.forEach(snap => {
                 arr.push(snap.val())
             })
+            console.log(arr)
+            return arr
         })
-        console.log(arr)
-        return arr
+        
     }
 
     getAllMapTemplates(){
@@ -57,9 +62,10 @@ class MapManager {
             snapshot.forEach(snap => {
                 arr.push(snap.val())
             })
+            console.log(arr)
+            return arr
         })
-        console.log(arr)
-        return arr
+        
     }
 }
 

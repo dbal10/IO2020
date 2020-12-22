@@ -26,7 +26,6 @@ class MapList extends React.Component {
         return (
         <React.Fragment>
         <List maps={maps} />
-        <GetM/>
         </React.Fragment>
         )
     }

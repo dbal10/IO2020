@@ -4,20 +4,21 @@ class ItemManager {
 
     saveItem(obj) {
         let id = obj.id.toString().valueOf();
-        fire.database().ref('database/items').child(id).set(obj);
+        fire.database().ref('database/items').child(id).set(obj).then(() => console.log("Save successful"));
     }
 
     getItemById(id){
         let val;
         fire.database().ref(`database/items`).child(id)
-        .on("value", snapshot => {
+        .once("value", snapshot => {
             val = snapshot.val()
+            console.log(val)
+            return val
         })
-        return val
     }
 
     deleteItem(id){
-        fire.database().ref(`database/items/${id}`).remove();
+        fire.database().ref('database/items').child(id).remove().then(() => console.log("Delete Successful"));
     }
 
     getAllItems(){
@@ -27,9 +28,10 @@ class ItemManager {
             snapshot.forEach(snap => {
                 arr.push(snap.val())
             })
+            console.log(arr)
+            return arr
         })
-        console.log(arr)
-        return arr
+    
     }
 }
 

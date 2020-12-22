@@ -1,5 +1,4 @@
 import React from 'react';
-import fire from "../../firebase";
 import ItemManager from "../../Admin/ItemManager"
 import MapManager from "../../Admin/MapManager"
 
@@ -10,9 +9,9 @@ export default function DeleteM() {
 
     return (
         <div id="del">
-            <button id="del" onClick={() => itemManager.deleteItem("a")}>DelI</button>
-            <button id="del" onClick={() => mapManager.deleteMap("a")}>DelM</button>
-            <button id="del" onClick={() => mapManager.deleteMapTemplate("a")}>DelMT</button>
+            <button id="del" onClick={() => itemManager.deleteItem("123")}>DelI</button>
+            <button id="del" onClick={() => mapManager.deleteMap("123")}>DelM</button>
+            <button id="del" onClick={() => mapManager.deleteMapTemplate("123")}>DelMT</button>
         </div>
     )
 }

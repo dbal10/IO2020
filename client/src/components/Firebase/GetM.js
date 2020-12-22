@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import fire from "../../firebase";
+import React from 'react';
 import ItemManager from "../../Admin/ItemManager"
 import MapManager from "../../Admin/MapManager"
 
@@ -10,11 +9,11 @@ export default function GetM() {
     return (
         <div id="getm">
             <button id="getm" onClick={itemManager.getAllItems}>GetItems</button>
-            <button id="getm" onClick={() => itemManager.getItemById("lol123")}>GetItem</button>
+            <button id="getm" onClick={() => itemManager.getItemById("123")}>GetItem</button>
             <button id="getm" onClick={mapManager.getAllMaps}>GetMaps</button>
-            <button id="getm" onClick={() => itemManager.getMapById("lol123")}>GetMap</button>
+            <button id="getm" onClick={() => mapManager.getMapById("123")}>GetMap</button>
             <button id="getm" onClick={mapManager.getAllMapTemplates}>GetMapTemplates</button>
-            <button id="getm" onClick={() => itemManager.getMapTemplateById("lol123")}>GetMapTemplate</button>
+            <button id="getm" onClick={() => mapManager.getMapTemplateById("123")}>GetMapTemplate</button>
         </div>
     )
 }
