@@ -28,14 +28,17 @@
     flex-direction: row
   }
 
-  .userListItem{
+.top{
+    margin-top:100px;
+}
+.userListItem{
     border: solid;
     border-color: black;
     border-width: 2px;
     display: flex;
     text-align: left;
     padding: 15px 32px;
-    background-color: #d6d6d6; 
+    background-color: #d1d1e0;
     font-size: 16px;
     margin: 10px;
     flex-direction: row;
@@ -50,20 +53,17 @@
 }
 
 .showUserMapsButton{
-    background-color: #e7ae11;
+    background-color: #8585ad;
     border: solid;
-    border-width: 0.5px;
+    border-width: 1px;
     padding: 15px 32px;
     text-align: center;
     font-size: 16px;
-    display: inline-flex;
-    justify-content: flex-end;
-    margin-right: 0px;
-    margin-left: auto;
-    float: right;
-    flex-direction: row
 }
 
+.right{
+    margin-left:75%;
+}
 .buttonLink{
   display: inline-flex;
     justify-content: flex-end;
@@ -71,5 +71,10 @@
     margin-left: auto;
     float: right;
     flex-direction: row
+}
+
+.space{
+    margin-top:10px;
+    margin-bottom:10px;
 }
 

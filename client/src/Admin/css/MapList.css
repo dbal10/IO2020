@@ -3,20 +3,16 @@ body {}
 .containerMaps {
     display: grid;
     grid-template-columns: 10fr 1fr;
-    width: 24%;
+    width: 33%;
     margin: auto;
     padding: 5px;
     line-height: 100%;
-    
-    
- 
-
 }
 
 .btn {
-    background-color: #4CAF50;
+    background-color: #8585ad;
     /* Green */
-    border: none;
+    border: 2px solid black;
     color: white;
     padding: 16px 32px;
     text-align: center;
@@ -28,6 +24,7 @@ body {}
 .listElem{
     padding: 16px 32px;
     color: black;
-    border: 1px solid black;
-    background-color:rgb(251, 255, 189);
+    border: 2px solid black;
+    background-color: #d1d1e0;
+    width:150px;
 }

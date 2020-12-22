@@ -1,11 +1,11 @@
 body {
-    background-color: #E6BCAB;
+    background-color: #c2c2d6;
     font-size: 2em;
 
 }
 
 .grid {
-    background-color: pink;
+    background-color: #d1d1e0;
     display: grid;
     grid-template-columns: 2fr 1fr;
     width: 80%;
@@ -35,7 +35,7 @@ body {
     padding: 20px;
     flex-wrap: wrap;
     font-size: 70px;
-    background-color: orange;
+    background-color: #c2c2d6;
     border-radius: 25px 0 0 25px;
 
 }
@@ -50,7 +50,10 @@ body {
 .description {
     background-color: #fff;
     width: 80%;
-    margin-left: 10%;
+    margin: auto;
+    height: 150px;
+    font-size: 14px;
+    text-align: center;
 }
 
 .btnObj{

@@ -11,8 +11,8 @@ function List(props) {
     // );
     return (
         <React.Fragment>
-        <div class="oldMaps">moje stare mapy</div>
-        <div class="adminMaps">mapy od admina</div>
+        <div class="oldMaps">Stare mapy</div>
+        <div class="adminMaps">Mapy od admina</div>
         </React.Fragment>
     );
 }
@@ -28,10 +28,10 @@ function Menu(props){
         <List />
         </div>
         <div class="side-bar">
-            <button className="btn btnObj">Konto</button>
-            <p class="description">charakterystyka mapy</p>
-            <button className="btn btnObj">Usuń mapę</button>
-            <button className="btn btnObj">Wczytaj nową</button>
+            <button className="btn btnObj space">Konto</button>
+            <p class="description space">Charakterystyka mapy</p>
+            <button className="btn btnObj space">Usuń mapę</button>
+            <button className="btn btnObj space">Wczytaj nową</button>
         </div>
         </div>
         </React.Fragment>

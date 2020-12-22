@@ -6,8 +6,10 @@ class UserListItem extends Component{
     render(){
         return(
             <div className='userListItem'>
-                <p style={{display: 'inline-flex'}, {float: 'left'}}>{this.props.name}</p>
-                <Link to="/MapList"><button className='showUserMapsButton' onClick={() => this.onShowUserMapsButtonClick(this.props.name)}>Show user's maps</button></Link>
+                <p style={{display: 'inline-flex'}}>{this.props.name}</p>
+                <div class="right">
+                <Link to="/MapList"><button className='showUserMapsButton' onClick={() => this.onShowUserMapsButtonClick(this.props.name)}>Show users maps</button></Link>
+                </div>
             </div>
         )
     }
