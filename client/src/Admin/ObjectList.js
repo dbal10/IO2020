@@ -1,6 +1,8 @@
 import React from 'react'
 import './css/ObjectList.css';
 
+
+
 function List(props) {
     const objects = props.objects;
     const listItems = objects.map((object) =>

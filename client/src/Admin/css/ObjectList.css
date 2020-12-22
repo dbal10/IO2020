@@ -23,6 +23,11 @@ body {
     color: purple;
     width: 50px;
     padding: 20px;
+    background-image: url("../img/map.jpg");
+    background-repeat:no-repeat;
+    background-size: 85px;
+    background-position: center;
+    opacity: 0.5;
 }
 
 .list {
