@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
-import {toPng} from 'html-to-image';
+// import {toPng} from 'html-to-image';
 
 import Grid from '../REusable/Grid/Grid';
 import classes from './MapShow.module.css';
@@ -53,7 +53,7 @@ class MapShow extends Component {
                 <button className={classes.symulation} onClick={ this.simulate }>Simulation</button>
                 <Route className={classes.ret} path="/map/show" exact render={() => <button><Link to="/">Return</Link></button>} />
 
-                <button onClick={this.saveToJpeg}>ZAPISZ MNIE KOCHANIE! OH TAK DO JPEGA :*</button>
+                <button onClick={this.saveToJpeg}>Save as JPEG</button>
             </div>
         );
     }
