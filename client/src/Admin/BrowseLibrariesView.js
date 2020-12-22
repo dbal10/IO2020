@@ -10,7 +10,7 @@ class BrowseLibrariesView extends Component{
                 <AccountInfo account='Dane Konta'/>
                 <Link to="/MapList"><button type="button" className="libraryButton" style={{backgroundColor: "#8585ad"}} onClick={this.onMapTemplatesLibraryButtonCllick}>Maps library</button></Link>
                 <Link to="/ObjectList"><button type="button" className="libraryButton" style={{backgroundColor: "#a3a3c2"}} onClick={this.onItemsLibraryButtonCllick}>Items library</button></Link>
-                <Link to="/UserBrowseView"><button type="button" className="libraryButton" style={{backgroundColor: "#8585ad"}} onClick={this.onUsersMapsLibraryButtonCllick}>Users maps library</button></Link>
+                <Link to="/UserBrowse"><button type="button" className="libraryButton" style={{backgroundColor: "#8585ad"}} onClick={this.onUsersMapsLibraryButtonCllick}>Users maps library</button></Link>
             </div>
         )
     }
