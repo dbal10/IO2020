@@ -1,6 +1,5 @@
 import React from 'react'
 import './css/MapList.css';
-import GetM from "../components/Firebase/GetM";
 // import getAllMaps from "./MapManager";
 
 function List(props) {
@@ -21,7 +20,7 @@ function List(props) {
 
 const maps = [`Pierwsza mapa`, `Druga mapa`, `Trzecia mapa`, `Czwarta mapa`, `Piata mapa`, `Szósta mapa`, `Siódma mapa`];
 
-class MapList extends React.Component {
+class MapListView extends React.Component {
     render() {
         return (
         <React.Fragment>
@@ -31,4 +30,4 @@ class MapList extends React.Component {
     }
 }
 
-export default MapList
+export default MapListView
