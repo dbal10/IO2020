@@ -2,34 +2,11 @@ import uuid from 'react-uuid';
 
 const initialState = {
     info: 'Redux and react-redux connected',
-    items: [
-        {
-            id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-            file: 'z',
-            itemName: 'przyklad 1',
-            width: 1,
-            length: 1,
-            realHeight: 1.22,
-            price: 11,
-            itemType: 'przyklad'
-        }
-    ],
-    itemToModify: {
-        id: 'b85a8e6b-348b-4011-a1ec-1e78e9620782',
-        file: 'z',
-        itemName: 'przyklad 1',
-        width: 1,
-        length: 1,
-        realHeight: 1.22,
-        price: 11,
-        itemType: 'przyklad'
-    }
+    items: [],
+    maps: []
 }
 
 const reducer = (state = initialState, action) => {
-    console.log('Zawartosc state: ' + state.items.map(item => {
-        return [item.id, item.file, item.itemName, item.width, item.length, item.realHeight, item.price, item.itemType];
-    }));
     switch (action.type) {
         case 'ADDNEWITEM':
             return {
@@ -48,12 +25,12 @@ const reducer = (state = initialState, action) => {
                 )
             }
         case 'MODIFYITEM':
-            const newItems = state.items.filter(item => item.id === action.id);
+            const newItems = state.items.filter(item => item.id !== action.id);
             return {
                 ...state,
                 items: newItems.concat(
                     {
-                        id: uuid(),
+                        id: action.id,
                         file: action.file,
                         itemName: action.itemName,
                         width: action.width,
@@ -63,7 +40,50 @@ const reducer = (state = initialState, action) => {
                         itemType: action.itemType
                     }
                 )
-
+            }
+        case 'CREATEMAPTEMPLATE':
+            return {
+                ...state,
+                maps: state.maps.concat(
+                    {
+                        id: uuid(),
+                        mapName: action.mapName,
+                        money: action.money,
+                        temperature: action.temperature,
+                        fields: action.fields,
+                        userItems: action.userItems
+                    }
+                )
+            }
+        case 'MODIFYMAPTEMPLATE':
+            const newMaps = state.maps.filter(map => map.id !== action.id);
+            return {
+                ...state,
+                maps: newMaps.concat(
+                    {
+                        id: action.id,
+                        mapName: action.mapName,
+                        money: action.money,
+                        temperature: action.temperature,
+                        fields: action.fields,
+                        userItems: action.userItems
+                    }
+                )
+            }
+        case 'MODIFYMAP':
+            const newMaps2 = state.maps.filter(map => map.id !== action.id);
+            return {
+                ...state,
+                maps: newMaps2.concat(
+                    {
+                        id: action.id,
+                        mapName: action.mapName,
+                        money: action.money,
+                        temperature: action.temperature,
+                        fields: action.fields,
+                        userItems: action.userItems
+                    }
+                )
             }
         default:
             return state
