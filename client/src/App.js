@@ -1,5 +1,7 @@
 
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import FirstConnect from './components/FirstConnect/FirstConnect';
 import Firebase from "./components/Firebase/Firebase";
 import MapListView from "./Admin/MapListView";
 import ObjectListView from "./Admin/ObjectListView";
@@ -23,6 +25,12 @@ import MapShow from './PLANSZA/Map/MapShow/MapShow';
 
 function App() {  
   return (
+    <BrowserRouter>
+      <div className="App">
+        <FirstConnect />
+      </div>
+    </BrowserRouter>
+    /*
     <React.Fragment>
     <Router>
 
@@ -40,7 +48,7 @@ function App() {
 
     </Switch>
     </Router>
-    </React.Fragment>
+    </React.Fragment>*/
   );
 }
 
