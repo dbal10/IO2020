@@ -1,5 +1,6 @@
 import React from 'react'
 import './css/MapList.css';
+import { Route, Link } from 'react-router-dom';
 // import getAllMaps from "./MapManager";
 
 function List(props) {
@@ -9,7 +10,9 @@ function List(props) {
             <div class="containerMaps">
             {/* style={{display: 'inline-block'}} */}
             <li className="listElem">{map}</li>
+            <Link to="/map/show">
             <button type="button" class="btn">Podgląd mapy</button>
+            </Link>
             </div>
         </React.Fragment>
     );
