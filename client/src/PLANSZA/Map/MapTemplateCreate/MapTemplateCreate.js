@@ -339,7 +339,7 @@ class MapTemplateCreate extends Component {
         } else { this.props.addMapTemplate(this.state); }
     }
 
-    async countTemperature(){
+    async countAvgTemperature(){
 
         let fieldsToPass = [];
         for(var i =0; i<this.state.fields.length; i++){
@@ -360,7 +360,7 @@ class MapTemplateCreate extends Component {
         }
 
         const response =
-        await axios.get("http://localhost:500/computedGrids",
+        await axios.get("http://localhost:500/averageTemperature",
                { params: {
                             items: fieldsToPass,
                             initialTemperature: 20,

@@ -4,7 +4,8 @@ import Item from './Item/Item';
 import classes from './ItemsList.module.css';
 
 const itemsList = (props) => {
-    let items = Object.keys(props.items)
+    if (props.item!=null){
+        let items = Object.keys(props.items)
         .map(iKey => {
             return [...Array(props.items[iKey])].map((_, i) => {
                 return (
@@ -17,6 +18,11 @@ const itemsList = (props) => {
     <div className={classes.items}>
         {items}
     </div>       
+    )
+    }
+    return (
+        <div className={classes.items}>
+        </div>  
     )
 
 };

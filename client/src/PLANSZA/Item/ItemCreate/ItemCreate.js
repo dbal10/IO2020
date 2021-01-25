@@ -83,7 +83,10 @@ class ItemCreate extends Component {
             || this.state.type === null
         ) {
             this.setState({ modalShow: true })
-        } else { this.props.addNewItem(this.state); }
+        } else { 
+            this.props.addNewItem(this.state); 
+            console.log(this.state)
+        }
     }
 
     modalClosed = () => {
