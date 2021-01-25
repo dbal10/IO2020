@@ -16,10 +16,10 @@ class Simulation {
     this.range = range;
     this.factor = impactFactor;
 
-    this.grids = this.prepareGrid();
+    this.grids = this._prepareGrid();
   }
 
-  prepareGrid() {
+  _prepareGrid() {
     let grids = [];
 
     for (let i = 0; i < this.mapY; i++) {
@@ -29,6 +29,7 @@ class Simulation {
           y: i,
           realHeight: 0,
           itemType: 'vegetation',
+          temperature: this.initialTemperature,
         });
       }
     }
@@ -49,7 +50,7 @@ class Simulation {
     return grids;
   }
 
-  establishAreas(item) {
+  _establishAreas(item) {
     let area = {};
     for (let dir = 0; dir < 4; dir++) {
       let range = this.range;
@@ -94,7 +95,7 @@ class Simulation {
   }
 
   simulate() {
-    this.computeAi();
+    this._computeAi();
     for (let item of this.items) {
       item.temperatureImpact = (item.Ai - 1) * this.initialTemperature;
       item.temperature = item.Ai * this.initialTemperature;
@@ -104,11 +105,112 @@ class Simulation {
       delete item.Ai;
     }
 
-    return this.items;
+    for (let item of this.items) {
+      let yIndex = item.y;
+      let yIndexEnd = item.y + item.length - 1;
+
+      for (yIndex; yIndex <= yIndexEnd; yIndex++) {
+        let xIndex = item.x + this.mapX * yIndex;
+        let xIndexEnd = item.x + item.width - 1 + this.mapX * yIndex;
+        for (xIndex; xIndex <= xIndexEnd; xIndex++) {
+          this.grids[xIndex].temperature = item.temperature;
+        }
+      }
+
+      let area = this._establishAreas(item);
+
+      //up
+      for (let y = area.yp; y < item.y; y++) {
+        let factor = 1 - 0.1 * (item.y - y);
+        for (let x = area.xp; x <= area.xk; x++) {
+          if (
+            this.grids[x + y * this.mapX].temperature == this.initialTemperature
+          ) {
+            this.grids[x + y * this.mapX].temperature =
+              this.initialTemperature + factor * item.temperatureImpact;
+          } else {
+            this.grids[x + y * this.mapX].temperature =
+              (this.grids[x + y * this.mapX].temperature +
+                this.initialTemperature +
+                factor * item.temperatureImpact) /
+              2;
+          }
+        }
+      }
+
+      //down
+      for (let y = area.yk; y >= item.y + item.length; y--) {
+        let factor = 1 - 0.1 * (y - (item.y + item.length - 1));
+        for (let x = area.xp; x <= area.xk; x++) {
+          if (
+            this.grids[x + y * this.mapX].temperature == this.initialTemperature
+          ) {
+            this.grids[x + y * this.mapX].temperature =
+              this.initialTemperature + factor * item.temperatureImpact;
+          } else {
+            this.grids[x + y * this.mapX].temperature =
+              (this.grids[x + y * this.mapX].temperature +
+                this.initialTemperature +
+                factor * item.temperatureImpact) /
+              2;
+          }
+        }
+      }
+      //left
+      for (let y = item.y; y < item.y + item.length; y++) {
+        let factor = 1 - 0.1 * (item.x - area.xp);
+        for (let x = area.xp; x < item.x; x++) {
+          if (
+            this.grids[x + y * this.mapX].temperature == this.initialTemperature
+          ) {
+            this.grids[x + y * this.mapX].temperature =
+              this.initialTemperature + factor * item.temperatureImpact;
+          } else {
+            this.grids[x + y * this.mapX].temperature =
+              (this.grids[x + y * this.mapX].temperature +
+                this.initialTemperature +
+                factor * item.temperatureImpact) /
+              2;
+          }
+          factor += 0.1;
+        }
+      }
+
+      //right
+      for (let y = item.y; y < item.y + item.length; y++) {
+        let factor = 0.9;
+        for (let x = item.x + item.width; x <= area.xk; x++) {
+          if (
+            this.grids[x + y * this.mapX].temperature == this.initialTemperature
+          ) {
+            this.grids[x + y * this.mapX].temperature =
+              this.initialTemperature + factor * item.temperatureImpact;
+          } else {
+            this.grids[x + y * this.mapX].temperature =
+              (this.grids[x + y * this.mapX].temperature +
+                this.initialTemperature +
+                factor * item.temperatureImpact) /
+              2;
+          }
+          factor -= 0.1;
+        }
+      }
+    }
+
+    for (let grid of this.grids) {
+      delete grid.realHeight;
+      delete grid.itemType;
+    }
+    //return [this.items, this.grids];
+    return this.grids;
   }
 
   computeTemperature() {
-    this.computeAi();
+    if (this.items.length == 0) {
+      return this.initialTemperature;
+    }
+
+    this._computeAi();
     let sum = 0;
     for (let item of this.items) {
       sum += item.Ai;
@@ -118,12 +220,12 @@ class Simulation {
     return sum * this.initialTemperature;
   }
 
-  computeAi() {
+  _computeAi() {
     for (let item of this.items) {
-      let area = this.establishAreas(item);
-      this.computeSVF(item, area);
-      this.computeFveg(item, area);
-      this.computeFbuild(item, area);
+      let area = this._establishAreas(item);
+      this._computeSVF(item, area);
+      this._computeFveg(item, area);
+      this._computeFbuild(item, area);
       item.itemType == 'vegetation' || item.itemType == 'water'
         ? (item.Ai = -(2 - item.SVF - (item.Fveg + item.Fbuild)))
         : (item.Ai = 2 - item.SVF - (item.Fveg + item.Fbuild));
@@ -134,7 +236,7 @@ class Simulation {
     }
   }
 
-  computeFveg(item, area) {
+  _computeFveg(item, area) {
     let allGridsCount =
       (area.xk - area.xp + 1) * (area.yk - area.yp + 1) -
       item.length * item.width;
@@ -167,7 +269,7 @@ class Simulation {
     }
   }
 
-  computeSVF(item, area) {
+  _computeSVF(item, area) {
     let sum = -(item.length * item.width * item.realHeight);
 
     for (let y = area.yp; y <= area.yk; y++) {
@@ -180,10 +282,9 @@ class Simulation {
       ((area.xk - area.xp + 1) * (area.yk - area.yp + 1) -
         item.length * item.width);
     item.SVF = Math.cos(Math.atan((sum / this.range) * this.step));
-    // }
   }
 
-  computeFbuild(item, area) {
+  _computeFbuild(item, area) {
     let allGridsCount =
       (area.xk - area.xp + 1) * (area.yk - area.yp + 1) -
       item.length * item.width;

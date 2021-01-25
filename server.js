@@ -1,11 +1,8 @@
-const express = require('express');
+const app = require('./app');
 
-const app = express();
+app.set('port', process.env.PORT || 5000);
 
-app.get('/connect', (req, res) => {
-    res.json('Server connected');
+const server = app.listen(app.get('port'), () => {
+  console.log(`Product service is listening on
+    ${server.address().port}`);
 });
-
-const port = 5000;
-
-app.listen(port, () => console.log('Server started on port ' + port));
