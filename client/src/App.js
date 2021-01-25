@@ -25,12 +25,12 @@ import MapShow from './PLANSZA/Map/MapShow/MapShow';
 
 function App() {  
   return (
-    <BrowserRouter>
-      <div className="App">
-        <FirstConnect />
-      </div>
-    </BrowserRouter>
-    /*
+    // <BrowserRouter>
+    //   <div className="App">
+    //     <FirstConnect />
+    //   </div>
+    // </BrowserRouter>
+    
     <React.Fragment>
     <Router>
 
@@ -42,13 +42,13 @@ function App() {
       <Route path="/UserBrowse" component = {UserBrowseView}/>
       <Route path="/MapTemplates" component = {MapTemplatesView}/>
       <Route path="/ArchiveMaps" component = {ArchiveMapsView}/>
-      <Route path="/" component = {Firebase}/> 
+      {/* <Route path="/" component = {Firebase}/>  */}
       <ConnectionWithPlansza />
      
 
     </Switch>
     </Router>
-    </React.Fragment>*/
+    </React.Fragment>
   );
 }
 

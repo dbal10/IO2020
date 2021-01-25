@@ -23,7 +23,7 @@ class ConnectionWithPlansza extends Component {
     render() {
         return (
             <div>
-                {/* <Route path="/" exact render={() => <h2>{this.state.info}</h2>} />
+                <Route path="/" exact render={() => <h2>{this.state.info}</h2>} />
                 <Route path="/" exact render={() => <h2>{this.props.information}</h2>} />
                 <div>
                     <nav>
@@ -34,7 +34,7 @@ class ConnectionWithPlansza extends Component {
                         <Route path="/" exact render={() => <li><Link to="/map/modify">Modify Map</Link></li>}/>
                         <Route path="/" exact render={() => <li><Link to="/map/show">Show Map</Link></li>}/>
                     </nav>
-                </div> */}
+                </div>
                 <Route path='/item/create' exact component={ItemCreate} />
                 <Route path='/item/modify' exact component={ItemModify} />
                 <Route path='/map/template/create' exact component={MapTemplateCreate} />
