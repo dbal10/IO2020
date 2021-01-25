@@ -36,6 +36,7 @@ class MapShow extends Component {
     render() {
         return (
             <div className={classes.container}>
+                <h2>ELO</h2>
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
                     <p>Make map, fill name, money and temperature</p>
                 </Modal>
@@ -71,3 +72,4 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(MapShow);
+// export default MapShow;
