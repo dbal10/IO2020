@@ -9,7 +9,7 @@ import MapTemplateModify from './PLANSZA/Map/MapTemplateModify/MapTemplateModify
 import MapModify from './PLANSZA/Map/MapModify/MapModify';
 import MapShow from './PLANSZA/Map/MapShow/MapShow';
 
-class FirstComponent extends Component {
+class ConnectionWithPlansza extends Component {
     state = {
         info: ''
     }
@@ -52,4 +52,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(FirstComponent);
+export default connect(mapStateToProps)(ConnectionWithPlansza);
