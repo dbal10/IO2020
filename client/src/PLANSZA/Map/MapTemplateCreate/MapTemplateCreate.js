@@ -367,5 +367,6 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapTemplateCreate);
+// export default connect(mapStateToProps, mapDispatchToProps)(MapTemplateCreate);
 
+export default MapTemplateCreate;
