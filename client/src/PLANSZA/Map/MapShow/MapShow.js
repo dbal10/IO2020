@@ -72,6 +72,8 @@ class MapShow extends Component {
                 )
 
                 //sending request
+
+                //chyba bedzie do wywalenia, uzywamy axios
                 var http = new XMLHttpRequest();
                 http.addEventListener('load', () => {
                     // dealing with result of the request
