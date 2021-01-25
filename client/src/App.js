@@ -10,6 +10,9 @@ import MapTemplatesView from "./Admin/MapTemplatesView";
 import ArchiveMapsView from "./Admin/ArchiveMapsView";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+//plansza
+import MapTemplateCreate from "./PLANSZA/Map/MapTemplateCreate/MapTemplateCreate";
+
 function App() {
   return (
     <Router>
@@ -23,6 +26,8 @@ function App() {
       <Route path="/MapTemplates" component = {MapTemplatesView}/>
       <Route path="/ArchiveMaps" component = {ArchiveMapsView}/>
       <Route path="/" component = {Firebase}/>
+      
+      <Route path="/MapTemplateCreate" component = {MapTemplateCreate}/>
     </Switch>
     </Router>
   );

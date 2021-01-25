@@ -1,0 +1,10 @@
+.InputSection {
+    height: 40%;
+    width: 80%;
+    position: fixed;
+    top: 50%;
+    left: 10%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
