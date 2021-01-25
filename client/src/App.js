@@ -1,6 +1,6 @@
 
 import './App.css';
-// import Firebase from "./components/Firebase/Firebase";
+import Firebase from "./components/Firebase/Firebase";
 import MapListView from "./Admin/MapListView";
 import ObjectListView from "./Admin/ObjectListView";
 import BrowseLibrariesView from "./Admin/BrowseLibrariesView";
