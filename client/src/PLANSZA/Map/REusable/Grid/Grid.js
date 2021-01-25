@@ -15,14 +15,8 @@ const grid = (props) => {
                     clicked={props.clicked}
                     fieldKey={fKey}
                     key={fKey}
-                    id={fKey} />
-                // <button
-                //     clicked={props.clicked(fKey)}
-                //     key={fKey} 
-                //     item={props.fields[fKey]}
-                // >{props.fields[fKey].item}
-                // {/* <img src={URL.createObjectURL(props.fields[fKey].item)} /> */}
-                // </button>
+                    id={fKey}
+                    temperature={props.fields[fKey].temperature} />
 
             );
         });
@@ -36,3 +30,19 @@ const grid = (props) => {
 };
 
 export default grid;
+
+// const Child = forwardRef((props, ref) => {
+
+//     // The component instance will be extended
+//     // with whatever you return from the callback passed
+//     // as the second argument
+//     useImperativeHandle(ref, () => ({
+  
+//       getAlert() {
+//         alert("getAlert from Child");
+//       }
+  
+//     }));
+  
+//     return <h1>Hi</h1>;
+//   });

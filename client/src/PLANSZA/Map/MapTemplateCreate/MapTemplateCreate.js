@@ -8,6 +8,9 @@ import MapTemplateInputs from '../REusable/MapTemplateInputs/MapTemplateInputs';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
 
+import toast from 'toasted-notes' 
+import 'toasted-notes/src/styles.css';
+
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
 // const width = 100;
@@ -18,8 +21,11 @@ const length = 10;
 let activatePlacable = false;
 let chosenItemKey = null;
 let emptyFieldsPlacable = true;
+let simulatingOn = false;
+
 
 class MapTemplateCreate extends Component {
+
     state = {
         fields: [],
         allItems: this.props.items,
@@ -39,7 +45,8 @@ class MapTemplateCreate extends Component {
                         item: null,
                         image: null,
                         partOfItem: false,
-                        placable: false
+                        placable: false,
+                        temperature: null,
                     }
                 ]
             }
@@ -82,6 +89,7 @@ class MapTemplateCreate extends Component {
             }
         }
         newFields[mainField].item = null;
+        console.log("after removing item" + newFields[mainField].item)
     }
 
     placeItem = (newFields, mainField) => {
@@ -90,6 +98,7 @@ class MapTemplateCreate extends Component {
                 const x = (j * length) + i + mainField;
                 newFields[x].item = null;
                 newFields[x].partOfItem = true;
+                console.log("fields item after placing item: " + newFields[x].item)
             }
         }
         this.changePlacableMainField(newFields, mainField);
@@ -221,56 +230,65 @@ class MapTemplateCreate extends Component {
     }
 
     fieldClicked = (event) => {
+            const newFields = [...this.state.fields];
+            const key = parseInt(event.target.id);
 
-        const newFields = [...this.state.fields];
-        const key = parseInt(event.target.id);
+            console.log("Event: " + event);
+            console.log("Event taraget: " + event.target)
 
-        // change the placability for user
-        if (activatePlacable) {
+            // change the placability for user
+            if (activatePlacable) {
 
-            const mainplacable = !newFields[key].placable;
+                const mainplacable = !newFields[key].placable;
 
-            // change placable for whole item if key is the main field
-            this.changePlacableMainField(newFields, key, mainplacable);
+                // change placable for whole item if key is the main field
+                this.changePlacableMainField(newFields, key, mainplacable);
 
-            // if key is a partOfItem find main field and change placable for whole item
-            this.changePlacablePartOfItem(newFields, key, mainplacable)
+                // if key is a partOfItem find main field and change placable for whole item
+                this.changePlacablePartOfItem(newFields, key, mainplacable)
 
-            newFields[key].placable = mainplacable;
-        }
-        else {
-
-            if (newFields[key].item !== null) { this.removeItem(newFields, key) }
+                newFields[key].placable = mainplacable;
+            }
             else {
+                console.log("Field to change: " + newFields[key]);
+                console.log("Field index: " + key);
 
-                // place item if possible
-                // chcek if item to place is chosen
-                if (chosenItemKey != null) {
+                if (newFields[key].item !== null) { this.removeItem(newFields, key) }
+                else {
 
-                    // check if item fit in chosen place on width
-                    // check if item fit in chosen place on length
-                    if (this.chcekFit(key)) {
+                    // place item if possible
+                    // chcek if item to place is chosen
+                    if (chosenItemKey != null) {
 
-                        // check if, on some of fields, fillen by chosen item, are placed other items and remove them
-                        // (if they are multi fields, remove it's partOfItem feilds)
-                        // if boundary field is a partOfItem, then this item, main field, is out of range, of item to place
-                        // remove this item
-                        this.checkItemsToRemove(newFields, key);
+                        // check if item fit in chosen place on width
+                        // check if item fit in chosen place on length
+                        if (this.chcekFit(key)) {
 
-                        // place item
-                        this.placeItem(newFields, key);
+                            // check if, on some of fields, fillen by chosen item, are placed other items and remove them
+                            // (if they are multi fields, remove it's partOfItem feilds)
+                            // if boundary field is a partOfItem, then this item, main field, is out of range, of item to place
+                            // remove this item
+                            this.checkItemsToRemove(newFields, key);
 
-                        newFields[key].partOfItem = false;
-                        newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
+                            // place item
+                            this.placeItem(newFields, key);
+
+                            newFields[key].partOfItem = false;
+                            newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
+                            console.log("after setting item: " + newFields[key].item)
+                        }
                     }
                 }
             }
-        }
 
-        this.setState({ fields: newFields });
+            this.setState({ fields: newFields });
+            if(simulatingOn){
+                this.simulate();
+            }
     }
 
     itemClicked = (event) => {
+        console.log("item clicked, activate placeable" + activatePlacable)
         if (activatePlacable) {
             const newItems = [...this.state.allItems];
             newItems[event.target.id].avaliable = !newItems[event.target.id].avaliable;
@@ -294,7 +312,9 @@ class MapTemplateCreate extends Component {
     }
 
     switchToPlacable = () => {
+        console.log("switching placable, before: " + activatePlacable);
         activatePlacable = !activatePlacable;
+        console.log("switching placable, after: " + activatePlacable);
     }
 
     modalClosed = () => {
@@ -302,6 +322,10 @@ class MapTemplateCreate extends Component {
     }
 
     addMapTemplate = () => {
+        if(simulatingOn){
+            simulatingOn = false;
+            this.stopSimulation();
+        }
         if (
             this.state.fields === []
             || this.state.money === null
@@ -314,7 +338,72 @@ class MapTemplateCreate extends Component {
         } else { this.props.addMapTemplate(this.state); }
     }
 
-    simulate = () => { }
+    simulate = () => {
+        const newFields = [...this.state.fields];
+
+        console.log(this.state.fields)
+
+        if(!simulatingOn) {
+            simulatingOn = true;
+        }
+            //konwertowanie fields na format zgodny z oczekiwaniami modulu
+        let fieldsToPass = [];
+        for(var i =0; i<this.state.fields.length; i++){
+            if(this.state.fields[i].partOfItem == false && 
+                this.state.fields[i].item != null){
+                    fieldsToPass.push({
+                        id: this.state.fields[i].item.id,
+                        file: this.state.fields[i].item.file,
+                        width: this.state.fields[i].item.width,
+                        length: this.state.fields[i].item.length,
+                        realHeight: this.state.fields[i].item.realHeight,
+                        price: this.state.fields[i].item.price,
+                        itemType: this.state.fields[i].item.itemType,
+                        x: i % length,
+                        y: Math.floor(i/width)
+                    })
+                }
+        }
+
+        let body = JSON.stringify(
+            {
+                items: fieldsToPass,
+                initialTemperature: 20,
+                mapX: length,
+                mapY: width
+            }
+        )
+
+        //sending request
+        var http = new XMLHttpRequest();
+        http.addEventListener('load', () => {
+            // dealing with result of the request
+        })
+        const url='http://localhost:500/computedGrids';
+        http.open("GET", url);
+        http.send(body);
+
+        toast.notify("Average temperature: " + 17);
+    
+        for(i in newFields){
+            newFields[i].temperature= 2 * i
+        }
+        
+
+        this.setState({ fields: newFields });
+     }
+
+    stopSimulation = () =>{
+        simulatingOn = false
+        let newFields = [...this.state.fields];
+
+        for( var i in newFields){
+            newFields[i].temperature = null;
+        }
+
+        this.setState({ fields: newFields });
+
+     }
 
     render() {
         return (
@@ -339,7 +428,9 @@ class MapTemplateCreate extends Component {
                 </div>
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
                 <button className={classes.placableForMany} onClick={this.switchEmptyFieldsPlacable}>Change placable for all empty fields</button>
-                <button className={classes.symulation} onClick={this.simulate}>Simulation</button>
+                {/* TODO formularz do wprowadzania wartosci dla symulacji */}
+                <button className={classes.symulation} onClick={this.simulate}>Start Simulation</button>
+                <button className={classes.stopSimulation} onClick={this.stopSimulation}>Stop Simulation</button>
                 <button className={classes.add} onClick={this.addMapTemplate}>Add</button>
                 <Route path="/map/template/create" exact render={() => <button className={classes.ret}><Link to="/">Return</Link></button>} />
             </div>

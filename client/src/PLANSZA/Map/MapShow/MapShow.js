@@ -8,7 +8,14 @@ import classes from './MapShow.module.css';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
 
+import toast from 'toasted-notes' 
+import 'toasted-notes/src/styles.css';
+
 var htmlToImage = require('html-to-image');
+
+let simulatingOn = false;
+const width = 10;
+const length = 10;
 
 class MapShow extends Component {
     state = {
@@ -31,7 +38,65 @@ class MapShow extends Component {
         });
     }
 
-    simulate = () => {}
+    simulate = () => {
+        const newFields = [...this.state.fields];
+
+        if(!simulatingOn) {
+            simulatingOn = true;
+            //konwertowanie fields na format zgodny z oczekiwaniami modulu
+                let fieldsToPass = [];
+                for(var i =0; i<this.state.fields.length; i++){
+                    if(this.state.fields[i].partOfItem == false && 
+                        this.state.fields[i].item != null){
+                            fieldsToPass.push({
+                                id: this.state.fields[i].item.id,
+                                file: this.state.fields[i].item.file,
+                                width: this.state.fields[i].item.width,
+                                length: this.state.fields[i].item.length,
+                                realHeight: this.state.fields[i].item.realHeight,
+                                price: this.state.fields[i].item.price,
+                                itemType: this.state.fields[i].item.itemType,
+                                x: i % length,
+                                y: Math.floor(i/width)
+                            })
+                        }
+                }
+
+                let body = JSON.stringify(
+                    {
+                        items: fieldsToPass,
+                        initialTemperature: 20,
+                        mapX: length,
+                        mapY: width
+                    }
+                )
+
+                //sending request
+                var http = new XMLHttpRequest();
+                http.addEventListener('load', () => {
+                    // dealing with result of the request
+                })
+                const url='http://localhost:500/computedGrids';
+                http.open("GET", url);
+                http.send(body);
+
+                toast.notify("Average temperature: " + 17);
+            
+                for(i in newFields){
+                    newFields[i].temperature= 2 * i
+                }
+        }
+        
+        else {
+            simulatingOn = false;
+            for( var i in newFields){
+                newFields[i].temperature = null;
+            }
+        }
+
+        
+        this.setState({ fields: newFields });
+    }
 
     render() {
         return (
