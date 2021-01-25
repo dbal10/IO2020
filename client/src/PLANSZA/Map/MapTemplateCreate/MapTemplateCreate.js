@@ -282,9 +282,9 @@ class MapTemplateCreate extends Component {
             }
 
             this.setState({ fields: newFields });
-            if(simulatingOn){
-                this.simulate();
-            }
+            // if(simulatingOn){
+            //     this.simulate();
+            // }
     }
 
     itemClicked = (event) => {
