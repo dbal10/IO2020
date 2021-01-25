@@ -42,7 +42,7 @@ function App() {
       <Route path="/UserBrowse" component = {UserBrowseView}/>
       <Route path="/MapTemplates" component = {MapTemplatesView}/>
       <Route path="/ArchiveMaps" component = {ArchiveMapsView}/>
-      <Route path="/" component = {Firebase}/>
+      {/* <Route path="/" component = {Firebase}/> */}
       <ConnectionWithPlansza />
      
 

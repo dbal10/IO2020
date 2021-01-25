@@ -1,5 +1,6 @@
 import React from 'react'
 import './css/ObjectList.css';
+import { Route, Link } from 'react-router-dom';
 
 function List(props) {
     const templates = props.templates;
@@ -25,9 +26,13 @@ function Menu(props){
         <div class="side-bar">
             <button className="btn btnObj">Konto</button>
             <p class="description">Informacja o mapie</p>
+            <Link to='/map/template/modify'>
             <button className="btn btnObj">Edytuj</button>
+            </Link>
             <button className="btn btnObj">Usuń</button>
+            <Link to='/map/template/create'>
             <button className="btn btnObj">Stwórz nową</button>
+            </Link>
         </div>
         </div>
         </React.Fragment>

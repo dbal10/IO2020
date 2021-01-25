@@ -1,6 +1,6 @@
 import React from 'react'
 import './css/ObjectList.css';
-
+import { Route, Link } from 'react-router-dom';
 
 
 function List(props) {
@@ -27,9 +27,17 @@ function Menu(props){
         <div class="side-bar">
             <button className="btn btnObj">Konto</button>
             <p className="description">opis obiektu</p>
+
+            <Link to='/item/modify'>
             <button className="btn btnObj">Edytuj</button>
+            </Link>
+            
             <button className="btn btnObj">Usuń</button>
-            <button className="btn btnObj">Stwórz nową</button>
+
+            <Link to='/item/create'>
+            <button className="btn btnObj">Stwórz nowy</button>
+            </Link>
+
         </div>
         </div>
         </React.Fragment>
