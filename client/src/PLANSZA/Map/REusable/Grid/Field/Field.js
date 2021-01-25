@@ -103,16 +103,13 @@ class Field extends Component {
                     field = (
                         <div>
                             <img 
-                                style={{maxWidth: 50*this.props.item.width, maxHeight: 50*this.props.item.length, opacity:0.5}}
+                                style={{maxWidth: 50*this.props.item.width, maxHeight: 50*this.props.item.length, opacity: 0.5}}
                                 src={`data:image/jpeg;base64,${this.props.item.file}`} 
                                 className={classes.placable} 
                                 id={this.props.fieldKey} 
                                 onClick={this.props.clicked} />
-                                {/* tu bag */}
-                            {/* <div className={classes.centered}
-                                 id={this.props.fieldKey}> {this.props.temperature} </div> */}
-                        
-                            
+                            <div className={classes.centered1}
+                                 id={this.props.fieldKey}> {this.props.temperature} </div>
                         </div>
                     )
                 } else {
@@ -121,7 +118,8 @@ class Field extends Component {
                             <img 
                                 style={{maxWidth: 50*this.props.item.width, maxHeight: 50*this.props.item.length, opacity: 0.3}}
                                 src={`data:image/jpeg;base64,${this.props.item.file}`} 
-                                className={classes.unplacable} id={this.props.fieldKey} 
+                                className={classes.unplacable} 
+                                id={this.props.fieldKey} 
                                 onClick={this.props.clicked} />
                             <div className={classes.centered}
                                  id={this.props.fieldKey}> {this.props.temperature} </div>
