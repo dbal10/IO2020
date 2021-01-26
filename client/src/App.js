@@ -1,6 +1,8 @@
 
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
+import Auth from './Auth'
+import Snackbars from './components/Snackbars'
 import FirstConnect from './components/FirstConnect/FirstConnect';
 import Firebase from "./components/Firebase/Firebase";
 import MapListView from "./Admin/MapListView";
