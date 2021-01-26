@@ -31,6 +31,8 @@ export const registerAsyncActionCreator = (isSu, email, password) => (dispatch, 
             fire.database().ref('SuperUsers').push().set(email)
         }
         fire.database().ref('Users').push().set(email)
+        var currentMail = email
+        console.log('%s', currentMail)
     })
     .catch(error => {
         const text = getSnackbarText(
@@ -50,6 +52,8 @@ export const logInAsyncActionCreator = (email, password) => (dispatch, getState)
     .then(response => {
         const {idToken, refreshToken, localId} = response.data
         dispatch(saveUserActionCreator(idToken, refreshToken, localId))
+        var currentMail = email
+        console.log('%s', currentMail)
     })
     .catch(error => {
         const text = getSnackbarText(
