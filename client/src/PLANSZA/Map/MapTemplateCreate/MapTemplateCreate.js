@@ -12,6 +12,7 @@ import MapManager from '../../../Admin/MapManager';
 
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css';
+import axios from 'axios';
 
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
@@ -288,9 +289,9 @@ class MapTemplateCreate extends Component {
             }
 
             this.setState({ fields: newFields });
-            if(simulatingOn){
-                this.simulate();
-            }
+            // if(simulatingOn){
+            //     this.simulate();
+            // }
     }
 
     itemClicked = (event) => {
@@ -346,15 +347,8 @@ class MapTemplateCreate extends Component {
             mm.saveMapTemplate(this.state);}
     }
 
-    simulate = () => {
-        const newFields = [...this.state.fields];
+    async countAvgTemperature(){
 
-        console.log(this.state.fields)
-
-        if(!simulatingOn) {
-            simulatingOn = true;
-        }
-            //konwertowanie fields na format zgodny z oczekiwaniami modulu
         let fieldsToPass = [];
         for(var i =0; i<this.state.fields.length; i++){
             if(this.state.fields[i].partOfItem == false && 
@@ -373,27 +367,64 @@ class MapTemplateCreate extends Component {
                 }
         }
 
-        let body = JSON.stringify(
-            {
-                items: fieldsToPass,
-                initialTemperature: 20,
-                mapX: length,
-                mapY: width
-            }
-        )
+        const response =
+        await axios.get("http://localhost:500/averageTemperature",
+               { params: {
+                            items: fieldsToPass,
+                            initialTemperature: 20,
+                            mapX: length,
+                            mapY: width
+                        }
+                }
+            )
+        console.log(response.data)
+
+    }
+
+    simulate = () => {
+        const newFields = [...this.state.fields];
+
+        console.log(this.state.fields)
+
+        if(!simulatingOn) {
+            simulatingOn = true;
+        }
+            //konwertowanie fields na format zgodny z oczekiwaniami modulu
+        // let fieldsToPass = [];
+        // for(var i =0; i<this.state.fields.length; i++){
+        //     if(this.state.fields[i].partOfItem == false && 
+        //         this.state.fields[i].item != null){
+        //             fieldsToPass.push({
+        //                 id: this.state.fields[i].item.id,
+        //                 file: this.state.fields[i].item.file,
+        //                 width: this.state.fields[i].item.width,
+        //                 length: this.state.fields[i].item.length,
+        //                 realHeight: this.state.fields[i].item.realHeight,
+        //                 price: this.state.fields[i].item.price,
+        //                 itemType: this.state.fields[i].item.itemType,
+        //                 x: i % length,
+        //                 y: Math.floor(i/width)
+        //             })
+        //         }
+        // }
+
+        // let body = JSON.stringify(
+        //     {
+        //         items: fieldsToPass,
+        //         initialTemperature: 20,
+        //         mapX: length,
+        //         mapY: width
+        //     }
+        // )
 
         //sending request
-        var http = new XMLHttpRequest();
-        http.addEventListener('load', () => {
-            // dealing with result of the request
-        })
-        const url='http://localhost:500/computedGrids';
-        http.open("GET", url);
-        http.send(body);
+        // http://localhost:500/computedGrids
+
+        this.countTemperature()
 
         toast.notify("Average temperature: " + 17);
     
-        for(i in newFields){
+        for(var i in newFields){
             newFields[i].temperature= 2 * i
         }
         

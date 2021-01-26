@@ -3,7 +3,6 @@ import GetM from "./GetM";
 import PostM from "./PostM";
 import DeleteM from "./DeleteM";
 
-
 class FirebaseText extends Component {
 
     state = {
@@ -22,9 +21,9 @@ class FirebaseText extends Component {
     render() {
         return (
             <div className="fireClass">
-                <GetM />
-                <PostM />
-                <DeleteM />
+                <GetM/>
+                <PostM/>
+                <DeleteM/>
             </div>
 
         )

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import ItemManager from "../../Admin/ItemManager"
 import MapManager from "../../Admin/MapManager"
+import fire from "../../firebase";
 
 //post/update, jeśli podamy obiekt z takim samym
 //itemName zostanie on nadpisany

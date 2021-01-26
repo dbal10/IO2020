@@ -89,7 +89,8 @@ class ItemCreate extends Component {
             || this.state.type === null
         ) {
             this.setState({ modalShow: true })
-        } else { this.props.addNewItem(this.state); 
+        } else { this.props.addNewItem(this.state);
+                 console.log(this.state)
                  let im = new ItemManager();
                  im.saveItem(this.state);}
     }
