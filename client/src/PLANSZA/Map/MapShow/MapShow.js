@@ -7,9 +7,11 @@ import Grid from '../REusable/Grid/Grid';
 import classes from './MapShow.module.css';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
+import Simulation from '../../../Model/simulation';
 
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css';
+
 
 var htmlToImage = require('html-to-image');
 
@@ -41,62 +43,50 @@ class MapShow extends Component {
     simulate = () => {
         const newFields = [...this.state.fields];
 
-        if(!simulatingOn) {
-            simulatingOn = true;
+        if(!simulatingOn){
+            simulatingOn=true;
             //konwertowanie fields na format zgodny z oczekiwaniami modulu
-                let fieldsToPass = [];
-                for(var i =0; i<this.state.fields.length; i++){
-                    if(this.state.fields[i].partOfItem == false && 
-                        this.state.fields[i].item != null){
-                            fieldsToPass.push({
-                                id: this.state.fields[i].item.id,
-                                file: this.state.fields[i].item.file,
-                                width: this.state.fields[i].item.width,
-                                length: this.state.fields[i].item.length,
-                                realHeight: this.state.fields[i].item.realHeight,
-                                price: this.state.fields[i].item.price,
-                                itemType: this.state.fields[i].item.itemType,
-                                x: i % length,
-                                y: Math.floor(i/width)
-                            })
-                        }
-                }
-
-                let body = JSON.stringify(
-                    {
-                        items: fieldsToPass,
-                        initialTemperature: 20,
-                        mapX: length,
-                        mapY: width
+            let fieldsToPass = [];
+            for(var i =0; i<this.state.fields.length; i++){
+                if(this.state.fields[i].partOfItem == false && 
+                    this.state.fields[i].item != null){
+                        fieldsToPass.push({
+                            id: this.state.fields[i].item.id,
+                            file: this.state.fields[i].item.file,
+                            itemName: this.state.fields[i].itemName,
+                            width: parseInt(this.state.fields[i].item.width),
+                            length: parseInt(this.state.fields[i].item.length),
+                            realHeight: parseInt(this.state.fields[i].item.realHeight),
+                            price: parseFloat(this.state.fields[i].item.price),
+                            itemType: this.state.fields[i].item.itemType,
+                            x: i % length,
+                            y: Math.floor(i/width)
+                        })
                     }
-                )
+            }
 
-                //sending request
+            let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
 
-                //chyba bedzie do wywalenia, uzywamy axios
-                var http = new XMLHttpRequest();
-                http.addEventListener('load', () => {
-                    // dealing with result of the request
-                })
-                const url='http://localhost:500/computedGrids';
-                http.open("GET", url);
-                http.send(body);
-
-                toast.notify("Average temperature: " + 17);
+            toast.notify("Average temperature: " + Math.round(simulation.computeTemperature() * 10 ) / 10);
             
-                for(i in newFields){
-                    newFields[i].temperature= 2 * i
-                }
-        }
+            let temperature = simulation.simulate();
+            
         
-        else {
-            simulatingOn = false;
+            for(var i in newFields){
+                newFields[i].temperature= Math.round(temperature[i].temperature * 10) / 10;
+            }
+        }
+        else{
+            simulatingOn = false
+            let newFields = [...this.state.fields];
+
             for( var i in newFields){
                 newFields[i].temperature = null;
             }
         }
-
         
+        
+
         this.setState({ fields: newFields });
     }
 

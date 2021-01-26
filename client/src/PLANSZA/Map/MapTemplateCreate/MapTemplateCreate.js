@@ -13,7 +13,6 @@ import 'toasted-notes/src/styles.css';
 import axios from 'axios';
 
 import Simulation from '../../../Model/simulation';
-import _ from 'underscore'; 
 
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
@@ -93,7 +92,6 @@ class MapTemplateCreate extends Component {
             }
         }
         newFields[mainField].item = null;
-        console.log("after removing item" + newFields[mainField].item)
     }
 
     placeItem = (newFields, mainField) => {
@@ -102,7 +100,6 @@ class MapTemplateCreate extends Component {
                 const x = (j * length) + i + mainField;
                 newFields[x].item = null;
                 newFields[x].partOfItem = true;
-                console.log("fields item after placing item: " + newFields[x].item)
             }
         }
         this.changePlacableMainField(newFields, mainField);
@@ -237,9 +234,6 @@ class MapTemplateCreate extends Component {
             const newFields = [...this.state.fields];
             const key = parseInt(event.target.id);
 
-            console.log("Event: " + event);
-            console.log("Event taraget: " + event.target)
-
             // change the placability for user
             if (activatePlacable) {
 
@@ -254,8 +248,6 @@ class MapTemplateCreate extends Component {
                 newFields[key].placable = mainplacable;
             }
             else {
-                console.log("Field to change: " + newFields[key]);
-                console.log("Field index: " + key);
 
                 if (newFields[key].item !== null) { this.removeItem(newFields, key) }
                 else {
@@ -279,7 +271,6 @@ class MapTemplateCreate extends Component {
 
                             newFields[key].partOfItem = false;
                             newFields[key].item = JSON.parse(JSON.stringify(this.state.allItems[chosenItemKey]));
-                            console.log("after setting item: " + newFields[key].item)
                         }
                     }
                 }
@@ -292,7 +283,6 @@ class MapTemplateCreate extends Component {
     }
 
     itemClicked = (event) => {
-        console.log("item clicked, activate placeable" + activatePlacable)
         if (activatePlacable) {
             const newItems = [...this.state.allItems];
             newItems[event.target.id].avaliable = !newItems[event.target.id].avaliable;
@@ -316,9 +306,7 @@ class MapTemplateCreate extends Component {
     }
 
     switchToPlacable = () => {
-        console.log("switching placable, before: " + activatePlacable);
         activatePlacable = !activatePlacable;
-        console.log("switching placable, after: " + activatePlacable);
     }
 
     modalClosed = () => {
@@ -346,8 +334,6 @@ class MapTemplateCreate extends Component {
     simulate = () => {
         const newFields = [...this.state.fields];
 
-        console.log(this.state.fields)
-
         if(!simulatingOn) {
             simulatingOn = true;
         }
@@ -359,10 +345,11 @@ class MapTemplateCreate extends Component {
                     fieldsToPass.push({
                         id: this.state.fields[i].item.id,
                         file: this.state.fields[i].item.file,
-                        width: this.state.fields[i].item.width,
-                        length: this.state.fields[i].item.length,
-                        realHeight: this.state.fields[i].item.realHeight,
-                        price: this.state.fields[i].item.price,
+                        itemName: this.state.fields[i].itemName,
+                        width: parseInt(this.state.fields[i].item.width),
+                        length: parseInt(this.state.fields[i].item.length),
+                        realHeight: parseInt(this.state.fields[i].item.realHeight),
+                        price: parseFloat(this.state.fields[i].item.price),
                         itemType: this.state.fields[i].item.itemType,
                         x: i % length,
                         y: Math.floor(i/width)
@@ -370,17 +357,15 @@ class MapTemplateCreate extends Component {
                 }
         }
 
-        let simulation = new Simulation( fieldsToPass,  20, 0.5, 100, 100, 7, 0.0001);
+          let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
 
-
-        toast.notify("Average temperature: " + simulation.computeTemperature());
-
-        let temperature = _.first(simulation.simulate(), 100)
-        console.log("temperature: ", temperature)
-    
+          toast.notify("Average temperature: " + Math.round(simulation.computeTemperature() * 10 ) / 10);
+          
+          let temperature = simulation.simulate();
+          
     
         for(var i in newFields){
-            newFields[i].temperature= 2 * i
+            newFields[i].temperature= Math.round(temperature[i].temperature * 10) / 10;
         }
         
 
