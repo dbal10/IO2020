@@ -317,3 +317,5 @@ class Simulation {
     }
   }
 }
+
+module.exports = Simulation;
