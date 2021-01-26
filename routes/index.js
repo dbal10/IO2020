@@ -4,7 +4,7 @@ const router = express.Router();
 // simulation
 const simulationController = require('../controllers/simulationController');
 
-router.get('/averageTemperature', simulationController.getAverageTemperature);
-router.get('/computedGrids', simulationController.getComputedGrids);
+router.post('/averageTemperature', simulationController.getAverageTemperature);
+router.post('/computedGrids', simulationController.getComputedGrids);
 
 module.exports = router;

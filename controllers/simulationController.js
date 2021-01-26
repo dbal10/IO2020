@@ -1,6 +1,7 @@
 let Simulation = require('../Model/simulation');
 
 module.exports.getAverageTemperature = (req, res) => {
+  
   const simulation = new Simulation(
     req.body.items,
     req.body.initialTemperature,
