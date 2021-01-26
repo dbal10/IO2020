@@ -17,8 +17,7 @@ import UserBrowseView from "../../Admin/UserBrowseView";
 import MapTemplatesView from "../../Admin/MapTemplatesView";
 import ArchiveMapsView from "../../Admin/ArchiveMapsView";
 
-//logowanie 
-import Auth from '../../Auth/Auth';
+import LoggingPanel from "../../Auth/LoggingPanel";
 
 class FirstComponent extends Component {
     state = {
@@ -61,7 +60,9 @@ class FirstComponent extends Component {
                 <Route path="/MapTemplates" component={MapTemplatesView} />
                 <Route path="/ArchiveMaps" component={ArchiveMapsView} />
 
-                <Route path="/Auth" component={Auth} />
+                <Route path="/LoggingPanel" component={LoggingPanel} />
+
+
             </div>
         );
     }

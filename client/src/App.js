@@ -52,7 +52,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <FirstConnect />
-        <LoggingPanel />
+
       </div>
     </BrowserRouter>
 
