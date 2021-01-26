@@ -5,7 +5,7 @@ import {Paper, TextField, Typography, Button} from '@material-ui/core'
 import Image from '../resources/background.png'
 
 const styles = {
-    container: {background: `url(${Image})`, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', width: '100vw', position: 'absolute', top: 0, left: 0},
+    container: {background: `url(${Image})`, backgroundSize: 'cover', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', position: 'absolute'},
     paper: {maxWidth: 280, padding: 20},
     buttonDiv: {display: 'flex', justifyContent: 'space-between', marginBottom: 10,  flexWrap: 'wrap'},
     textField: {marginTop: 10, marginBottom: 10}
