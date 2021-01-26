@@ -15,9 +15,8 @@ import 'toasted-notes/src/styles.css';
 import axios from 'axios';
 import { Simulate } from 'react-dom/test-utils';
 import Simulation from '../../../Model/simulation';
-import _ from 'underscore'; 
 
-import Simulation from '../../../Model/simulation';
+
 
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
