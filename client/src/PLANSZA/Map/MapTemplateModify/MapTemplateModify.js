@@ -8,12 +8,18 @@ import MapTemplateInputs from '../REusable/MapTemplateInputs/MapTemplateInputs';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
 
+import Simulation from '../../../Model/simulation';
+
+
+import toast from 'toasted-notes' 
+import 'toasted-notes/src/styles.css';
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
 // const width = 100;
 // const length = 100;
 const width = 10;
 const length = 10;
+let simulatingOn = false;
 
 let activatePlacable = false;
 let chosenItemKey = null;
@@ -301,7 +307,55 @@ class MapTemplateModify extends Component {
         } else { this.props.modifyMapTemplate(this.state); }
     }
 
-    simulate = () => {}
+    simulate = () => {
+        const newFields = [...this.state.fields];
+
+        if(!simulatingOn){
+            simulatingOn=true;
+            //konwertowanie fields na format zgodny z oczekiwaniami modulu
+            let fieldsToPass = [];
+            for(var i =0; i<this.state.fields.length; i++){
+                if(this.state.fields[i].partOfItem == false && 
+                    this.state.fields[i].item != null){
+                        fieldsToPass.push({
+                            id: this.state.fields[i].item.id,
+                            file: this.state.fields[i].item.file,
+                            itemName: this.state.fields[i].itemName,
+                            width: parseInt(this.state.fields[i].item.width),
+                            length: parseInt(this.state.fields[i].item.length),
+                            realHeight: parseInt(this.state.fields[i].item.realHeight),
+                            price: parseFloat(this.state.fields[i].item.price),
+                            itemType: this.state.fields[i].item.itemType,
+                            x: i % length,
+                            y: Math.floor(i/width)
+                        })
+                    }
+            }
+
+            let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
+
+            toast.notify("Average temperature: " + Math.round(simulation.computeTemperature() * 10 ) / 10);
+            
+            let temperature = simulation.simulate();
+            
+        
+            for(var i in newFields){
+                newFields[i].temperature= Math.round(temperature[i].temperature * 10) / 10;
+            }
+        }
+        else{
+            simulatingOn = false
+            let newFields = [...this.state.fields];
+
+            for( var i in newFields){
+                newFields[i].temperature = null;
+            }
+        }
+        
+        
+
+        this.setState({ fields: newFields });
+    }
     
     render() {
         return (
