@@ -22,6 +22,9 @@ import MapTemplateModify from './PLANSZA/Map/MapTemplateModify/MapTemplateModify
 import MapModify from './PLANSZA/Map/MapModify/MapModify';
 import MapShow from './PLANSZA/Map/MapShow/MapShow';
 
+//logowanie
+import LoggingPanel from './Auth/LoggingPanel';
+
 // import './App.css';
 // import { BrowserRouter } from 'react-router-dom';
 // import FirstConnect from './components/FirstConnect/FirstConnect';
@@ -49,6 +52,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <FirstConnect />
+        <LoggingPanel />
       </div>
     </BrowserRouter>
 

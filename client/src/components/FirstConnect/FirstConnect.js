@@ -17,6 +17,9 @@ import UserBrowseView from "../../Admin/UserBrowseView";
 import MapTemplatesView from "../../Admin/MapTemplatesView";
 import ArchiveMapsView from "../../Admin/ArchiveMapsView";
 
+//logowanie 
+import Auth from '../../Auth/Auth';
+
 class FirstComponent extends Component {
     state = {
         info: ''
@@ -57,6 +60,8 @@ class FirstComponent extends Component {
                 <Route path="/UserBrowse" component={UserBrowseView} />
                 <Route path="/MapTemplates" component={MapTemplatesView} />
                 <Route path="/ArchiveMaps" component={ArchiveMapsView} />
+
+                <Route path="/Auth" component={Auth} />
             </div>
         );
     }
