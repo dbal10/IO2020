@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import Grid from '../REusable/Grid/Grid';
 import classes from './MapTemplateCreate.module.css';
 import MapTemplateInputs from '../REusable/MapTemplateInputs/MapTemplateInputs';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
+import MapManager from '../../../Admin/MapManager';
 
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css';
 import axios from 'axios';
+import { Simulate } from 'react-dom/test-utils';
+import Simulation from '../../../Model/simulation';
+import _ from 'underscore'; 
 
 import Simulation from '../../../Model/simulation';
 
@@ -30,6 +35,7 @@ let simulatingOn = false;
 class MapTemplateCreate extends Component {
 
     state = {
+        id: null,
         fields: [],
         allItems: this.props.items,
         money: 1000,
@@ -64,6 +70,9 @@ class MapTemplateCreate extends Component {
     }
 
     addParam = (event, param) => {
+        this.setState({
+            id: uuidv4()
+        })
         switch (param) {
             case "mapName":
                 this.setState({
@@ -327,13 +336,14 @@ class MapTemplateCreate extends Component {
             || this.state.mapName === ''
         ) {
             this.setState({ modalShow: true })
-        } else { this.props.addMapTemplate(this.state); }
+        } else { this.props.addMapTemplate(this.state); 
+            let mm = new MapManager();
+            mm.saveMapTemplate(this.state);}
     }
 
 
     simulate = () => {
         const newFields = [...this.state.fields];
-
         if(!simulatingOn) {
             simulatingOn = true;
         }
@@ -356,6 +366,7 @@ class MapTemplateCreate extends Component {
                     })
                 }
         }
+
 
           let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
 

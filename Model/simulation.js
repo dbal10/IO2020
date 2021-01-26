@@ -15,6 +15,7 @@ class Simulation {
     this.mapY = mapY;
     this.range = range;
     this.factor = impactFactor;
+
     this.grids = this._prepareGrid();
   }
 
@@ -315,7 +316,6 @@ class Simulation {
       item.Fbuild -= item.length * item.width * this.factor;
     }
   }
-
 }
 
 module.exports = Simulation;
