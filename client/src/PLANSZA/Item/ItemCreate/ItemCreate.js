@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import InputSection from '../REusable/InputSection/InputSection';
 import ImageSection from '../REusable/ImageSection/ImageSection';
 import classes from './ItemCreate.module.css';
 import Modal from '../../UI/Modal/Modal';
+import ItemManager from '../../../Admin/ItemManager';
 
 class ItemCreate extends Component {
     state = {
+        id: null,
         file: null,
         fileToShow: null,
         itemName: '',
@@ -37,6 +40,9 @@ class ItemCreate extends Component {
     }
 
     addParam = (event, param) => {
+        this.setState({
+            id: uuidv4()
+        })
         switch (param) {
             case "itemName":
                 this.setState({
@@ -83,10 +89,10 @@ class ItemCreate extends Component {
             || this.state.type === null
         ) {
             this.setState({ modalShow: true })
-        } else { 
-            this.props.addNewItem(this.state); 
-            console.log(this.state)
-        }
+        } else { this.props.addNewItem(this.state);
+                 console.log(this.state)
+                 let im = new ItemManager();
+                 im.saveItem(this.state);}
     }
 
     modalClosed = () => {

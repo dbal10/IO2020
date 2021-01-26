@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import Grid from '../REusable/Grid/Grid';
 import classes from './MapTemplateCreate.module.css';
 import MapTemplateInputs from '../REusable/MapTemplateInputs/MapTemplateInputs';
 import ItemsList from '../REusable/ItemsList/ItemsList';
 import Modal from '../../UI/Modal/Modal';
+import MapManager from '../../../Admin/MapManager';
 
 import toast from 'toasted-notes' 
 import 'toasted-notes/src/styles.css';
@@ -31,6 +33,7 @@ let simulatingOn = false;
 class MapTemplateCreate extends Component {
 
     state = {
+        id: null,
         fields: [],
         allItems: this.props.items,
         money: 1000,
@@ -65,6 +68,9 @@ class MapTemplateCreate extends Component {
     }
 
     addParam = (event, param) => {
+        this.setState({
+            id: uuidv4()
+        })
         switch (param) {
             case "mapName":
                 this.setState({
@@ -339,7 +345,9 @@ class MapTemplateCreate extends Component {
             || this.state.mapName === ''
         ) {
             this.setState({ modalShow: true })
-        } else { this.props.addMapTemplate(this.state); }
+        } else { this.props.addMapTemplate(this.state); 
+            let mm = new MapManager();
+            mm.saveMapTemplate(this.state);}
     }
 
 
