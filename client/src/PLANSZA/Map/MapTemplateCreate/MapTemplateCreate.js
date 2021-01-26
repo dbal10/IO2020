@@ -345,54 +345,49 @@ class MapTemplateCreate extends Component {
         const newFields = [...this.state.fields];
         if(!simulatingOn) {
             simulatingOn = true;
-        }
-            //konwertowanie fields na format zgodny z oczekiwaniami modulu
-        let fieldsToPass = [];
-        for(var i =0; i<this.state.fields.length; i++){
-            if(this.state.fields[i].partOfItem == false && 
-                this.state.fields[i].item != null){
-                    fieldsToPass.push({
-                        id: this.state.fields[i].item.id,
-                        file: this.state.fields[i].item.file,
-                        itemName: this.state.fields[i].itemName,
-                        width: parseInt(this.state.fields[i].item.width),
-                        length: parseInt(this.state.fields[i].item.length),
-                        realHeight: parseInt(this.state.fields[i].item.realHeight),
-                        price: parseFloat(this.state.fields[i].item.price),
-                        itemType: this.state.fields[i].item.itemType,
-                        x: i % length,
-                        y: Math.floor(i/width)
-                    })
-                }
-        }
+                    //konwertowanie fields na format zgodny z oczekiwaniami modulu
+            let fieldsToPass = [];
+            for(var i =0; i<this.state.fields.length; i++){
+                if(this.state.fields[i].partOfItem == false && 
+                    this.state.fields[i].item != null){
+                        fieldsToPass.push({
+                            id: this.state.fields[i].item.id,
+                            file: this.state.fields[i].item.file,
+                            itemName: this.state.fields[i].itemName,
+                            width: parseInt(this.state.fields[i].item.width),
+                            length: parseInt(this.state.fields[i].item.length),
+                            realHeight: parseInt(this.state.fields[i].item.realHeight),
+                            price: parseFloat(this.state.fields[i].item.price),
+                            itemType: this.state.fields[i].item.itemType,
+                            x: i % length,
+                            y: Math.floor(i/width)
+                        })
+                    }
+            }
 
 
-          let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
+            let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
 
-          toast.notify("Average temperature: " + Math.round(simulation.computeTemperature() * 10 ) / 10);
-          
-          let temperature = simulation.simulate();
-          
-    
-        for(var i in newFields){
-            newFields[i].temperature= Math.round(temperature[i].temperature * 10) / 10;
-        }
+            toast.notify("Average temperature: " + Math.round(simulation.computeTemperature() * 10 ) / 10);
+            
+            let temperature = simulation.simulate();
+            
         
-
-        this.setState({ fields: newFields });
-     }
-
-    stopSimulation = () =>{
-        simulatingOn = false
-        let newFields = [...this.state.fields];
-
-        for( var i in newFields){
-            newFields[i].temperature = null;
+            for(var i in newFields){
+                newFields[i].temperature= Math.round(temperature[i].temperature * 10) / 10;
+            }
+        
+        }
+        else{
+            simulatingOn = false;
+            for( var i in newFields){
+                newFields[i].temperature = null;
+            }
         }
 
         this.setState({ fields: newFields });
-
      }
+
 
     render() {
         return (
@@ -418,8 +413,7 @@ class MapTemplateCreate extends Component {
                 <button className={classes.placable} onClick={() => this.switchToPlacable()}>Chose placable fields and avaliable items</button>
                 <button className={classes.placableForMany} onClick={this.switchEmptyFieldsPlacable}>Change placable for all empty fields</button>
                 {/* TODO formularz do wprowadzania wartosci dla symulacji */}
-                <button className={classes.symulation} onClick={this.simulate}>Start Simulation</button>
-                <button className={classes.stopSimulation} onClick={this.stopSimulation}>Stop Simulation</button>
+                <button className={classes.symulation} onClick={this.simulate}>Simulation</button>
                 <button className={classes.add} onClick={this.addMapTemplate}>Add</button>
                 <Route path="/map/template/create" exact render={() => <button className={classes.ret}><Link to="/">Return</Link></button>} />
             </div>

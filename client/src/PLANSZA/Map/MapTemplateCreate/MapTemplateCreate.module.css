@@ -10,7 +10,6 @@
     "map placable"
     "map placableForMany"
     "map symulation"
-    "map stopSimulation"
     "map add"
     "map ret";
     grid-template-columns: 80% 20%;
@@ -45,9 +44,6 @@
   }
   .symulation {
     grid-area: symulation;
-  }
-  .stopSimulation {
-    grid-area: stopSimulation;
   }
   .add {
     grid-area: add;

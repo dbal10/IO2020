@@ -16,8 +16,8 @@ import 'toasted-notes/src/styles.css';
 var htmlToImage = require('html-to-image');
 
 let simulatingOn = false;
-const width = 10;
-const length = 10;
+const width = 100;
+const length = 100;
 
 class MapShow extends Component {
     state = {
@@ -64,6 +64,8 @@ class MapShow extends Component {
                         })
                     }
             }
+
+            console.log(fieldsToPass)
 
             let simulation = new Simulation(fieldsToPass, 19, 0.5, length, width, 7,0.0001);
 
