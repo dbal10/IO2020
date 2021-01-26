@@ -13,10 +13,10 @@ import Simulation from '../../../Model/simulation';
 
 
 // jeśli chcecie zmienić rozmiar planszy z testowej na rzeczywisty to pamiętajcie o zmianie siatki w css kompontu grid
-// const width = 100;
-// const length = 100;
-const width = 10;
-const length = 10;
+const width = 100;
+const length = 100;
+// const width = 10;
+// const length = 10;
 let simulatingOn = false;
 
 let chosenItemKey = null;

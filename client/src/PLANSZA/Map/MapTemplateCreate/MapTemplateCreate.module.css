@@ -2,7 +2,7 @@
    .container {
     display: grid;
     width: 100%;
-    height: 100%;
+    height: 754px;
     grid-template-areas: 
     "map createmap"
     "map inputs"
@@ -13,7 +13,7 @@
     "map stopSimulation"
     "map add"
     "map ret";
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 80% 20%;
     grid-template-rows: 8% 13% 54% repeat(5, 5%);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -24,6 +24,7 @@
   
   .map {
     grid-area: map;
+    overflow: scroll;
   }
   .createmap {
     grid-area: createmap;
@@ -33,6 +34,8 @@
   }
   .items {
     grid-area: items;
+    overflow: scroll;
+
   }
   .placable {
     grid-area: placable;

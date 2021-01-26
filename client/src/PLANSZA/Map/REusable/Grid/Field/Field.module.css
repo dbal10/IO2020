@@ -22,15 +22,16 @@
     margin: none;
 }
 
-.centered {
+/* .centered {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+    font-size: 1000px;
+} */
 
-.centered1 {
-    top: 50%;
-    left: 50%;
-    transform: translate(-5%, -480%);
+.centered {
+    /* top: 50%; */
+    /* left: 50%; */
+    transform: translate(0%, 0%);
 }

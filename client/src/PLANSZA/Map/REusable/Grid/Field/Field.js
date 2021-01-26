@@ -108,8 +108,7 @@ class Field extends Component {
                                 className={classes.placable} 
                                 id={this.props.fieldKey} 
                                 onClick={this.props.clicked} />
-                            <div className={classes.centered1}
-                                 id={this.props.fieldKey}> {this.props.temperature} </div>
+                            
                         </div>
                     )
                 } else {
@@ -121,7 +120,7 @@ class Field extends Component {
                                 className={classes.unplacable} 
                                 id={this.props.fieldKey} 
                                 onClick={this.props.clicked} />
-                            <div className={classes.centered}
+                            <div 
                                  id={this.props.fieldKey}> {this.props.temperature} </div>
                         </div>
                     )
