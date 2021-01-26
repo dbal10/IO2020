@@ -1,0 +1,80 @@
+.libraryButton{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    width: 90%;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-block: 15px;
+  }
+
+  .accountInfoBox{
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+    display: flex;
+    float: right;
+    padding: 15px 32px;
+    text-align: center;
+    background-color: #d6d6d6; 
+    font-size: 32px;
+    margin: 10px;
+    flex-direction: row
+  }
+
+.top{
+    margin-top:100px;
+}
+.userListItem{
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+    display: flex;
+    text-align: left;
+    padding: 15px 32px;
+    background-color: #d1d1e0;
+    font-size: 16px;
+    margin: 10px;
+    flex-direction: row;
+    margin: auto;
+    margin-block: 15px;
+    width: 80%;
+  }
+
+.userInfo{
+  text-align: center;
+  display: inline-flex;
+}
+
+.showUserMapsButton{
+    background-color: #8585ad;
+    border: solid;
+    border-width: 1px;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.right{
+    margin-left:75%;
+}
+.buttonLink{
+  display: inline-flex;
+    justify-content: flex-end;
+    margin-right: 0px;
+    margin-left: auto;
+    float: right;
+    flex-direction: row
+}
+
+.space{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+

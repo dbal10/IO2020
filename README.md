@@ -16,3 +16,8 @@ npm run server
 npm run client
 
 # Server runs on http://localhost:5000 and client on http://localhost:3000
+
+# Dependencies for board
+npm install axios
+npm install toasted-notes
+npm install react-spring
