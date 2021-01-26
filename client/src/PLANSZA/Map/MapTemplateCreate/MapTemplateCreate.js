@@ -370,13 +370,13 @@ class MapTemplateCreate extends Component {
                 }
         }
 
-        let simulation = new Simulation(fieldsToPass);
+        let simulation = new Simulation( fieldsToPass,  20, 0.5, 100, 100, 7, 0.0001);
 
 
         toast.notify("Average temperature: " + simulation.computeTemperature());
 
-        // let temperature = _.first(simulation.simulate(), 100)
-        // console.log("temperature: ", temperature)
+        let temperature = _.first(simulation.simulate(), 100)
+        console.log("temperature: ", temperature)
     
     
         for(var i in newFields){
