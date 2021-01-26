@@ -51,8 +51,11 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Auth>
         <FirstConnect />
-
+        <Firebase/>
+        </Auth>
+        <Snackbars/>
       </div>
     </BrowserRouter>
 
