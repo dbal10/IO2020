@@ -87,7 +87,7 @@ class ItemModify extends Component {
         return (
             <div>
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
-                    <p>Fill all fields and chose image</p>
+                    <p className={classes.Alert}>Fill all fields and chose image</p>
                 </Modal>
                 <ImageSection file={this.state.fileToShow} handleChange={this.addItemImage} />
                 <InputSection values={this.state} handleChange={this.addParam} ></InputSection>

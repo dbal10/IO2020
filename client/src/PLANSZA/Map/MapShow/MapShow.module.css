@@ -21,23 +21,60 @@
   .map {
     grid-area: map;
     overflow: scroll;
+    border-radius: 10px;
+    background-color: azure;
   }
   .inputs {
     grid-area: inputs;
+    border-radius: 25px;
+    background-color: whitesmoke;
   }
   .items {
     grid-area: items;
     overflow: scroll;
+    border-radius: 25px;
+    background-color: whitesmoke;
   }
   .symulation {
     grid-area: symulation;
+    border-radius: 25px;
+    background-color: burlywood;
+  }
+  .symulation:hover{
+    background-color: teal;
   }
   .save_to_image {
     grid-area: save_to_image;
+    border-radius: 25px;
+    background-color: burlywood;
+  }
+  .save_to_image:hover{
+    background-color: teal;
   }
   .ret {
     grid-area: ret;
+    border-radius: 25px;
+    background-color: burlywood;
+  }
+  .ret:hover{
+    background-color: teal;
   }
   .clicked {
     box-shadow: inset 0 0 0 50px rgb(15, 224, 25, 0.2);
+    border-radius: 25px;
+    background-color: burlywood;
+}
+.clicked:hover{
+  background-color: teal;
+}
+.Alert {
+  font-size: xx-large;
+  font-weight: 700;
+  border-radius: 24px;
+  animation: blinkingBackground 5s infinite;
+}
+@keyframes blinkingBackground{
+ 0% {background-color: whitesmoke;}
+ 45% {background-color: red;}
+ 95% {background-color: whitesmoke;}
 }

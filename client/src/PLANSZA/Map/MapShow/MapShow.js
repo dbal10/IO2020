@@ -96,7 +96,8 @@ class MapShow extends Component {
         return (
             <div className={classes.container}>
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
-                    <p>Make map, fill name, money and temperature</p>
+                    <p className={classes.Alert
+                    }>Make map, fill name, money and temperature</p>
                 </Modal>
                 <div className={classes.map} id='map'>
                     <Grid clicked={this.fieldClicked} fields={this.state.fields} />

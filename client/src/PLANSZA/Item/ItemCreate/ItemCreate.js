@@ -101,18 +101,19 @@ class ItemCreate extends Component {
 
     render() {
         return (
-            <div>
+                <div>
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
-                    <p>Fill all fields and chose image</p>
+                    <div className={classes.Alert}>Fill all fields and chose image!</div>
                 </Modal>
+                
                 <ImageSection file={this.state.file} handleChange={this.addItemImage} onFIleSubmit={this.onFIleSubmit} />
-                <InputSection values={this.state} handleChange={this.addParam} />
+                <InputSection style = {classes.InputSection} values={this.state} handleChange={this.addParam} />
                 <div className={classes.ButtonsPosition}>
-                    <button onClick={this.addItem}>Create</button>
+                    <button onClick={this.addItem} class = "button">Create</button>
                     {/* <button onClick={() => this.props.addNewItem(this.state)}>Create</button> */}
                     <button><Link to="/">Cancel</Link></button>
                 </div>
-            </div>
+                </div>
         );
     }
 };

@@ -289,7 +289,7 @@ class MapModify extends Component {
                     <p>You don't have enought money</p>
                 </Modal>
                 <Modal show={this.state.modal2Show} modalClosed={this.modal2Closed}>
-                    <p>Item don't fit in placable fields</p>
+                    <p className={classes.Alert}>Item don't fit in placable fields</p>
                 </Modal>
                 <div className={classes.map}>
                     <Grid clicked={this.fieldClicked} fields={this.state.fields} />

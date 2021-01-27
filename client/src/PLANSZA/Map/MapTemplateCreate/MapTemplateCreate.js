@@ -110,7 +110,15 @@ class MapTemplateCreate extends Component {
                 newFields[x].partOfItem = true;
             }
         }
-        this.changePlacableMainField(newFields, mainField);
+
+        const mainplacable = !newFields[mainField].placable;
+
+        for (let i = 0; i < this.state.allItems[chosenItemKey].width; i++) {
+            for (let j = 0; j < this.state.allItems[chosenItemKey].length; j++) {
+                const changedItemsField = (j * length) + i + mainField;
+                newFields[changedItemsField].placable = mainplacable;
+            }
+        }
     }
 
     chcekFit = (mainFIled) => {
@@ -310,7 +318,7 @@ class MapTemplateCreate extends Component {
             }
         }
         emptyFieldsPlacable = !emptyFieldsPlacable;
-        this.setState({ fields: newFields });
+        this.setState({ fields: newFields }); 
     }
 
     switchToPlacable = () => {
@@ -393,7 +401,7 @@ class MapTemplateCreate extends Component {
         return (
             <div className={classes.container}>
                 <Modal show={this.state.modalShow} modalClosed={this.modalClosed}>
-                    <p>Make map, fill name, money and temperature</p>
+                    <p className={classes.Alert}>Make map, fill name, money and temperature</p>
                 </Modal>
                 <div className={classes.map}>
                     <Grid clicked={this.fieldClicked} fields={this.state.fields} />
