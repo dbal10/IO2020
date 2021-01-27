@@ -12,8 +12,8 @@ function List(props) {
     // );
     return (
         <React.Fragment>
-        <div class="oldMaps">moje stare mapy</div>
-        <div class="adminMaps">mapy od admina</div>
+        <div className="oldMaps">moje stare mapy</div>
+        <div className="adminMaps">mapy od admina</div>
         </React.Fragment>
     );
 }
@@ -23,14 +23,14 @@ function List(props) {
 function Menu(props){
     return (
         <React.Fragment>
-        <div class="grid">
-        <div class="templates">
+        <div className="grid">
+        <div className="templates">
         {/* <List templates={templates} /> */}
         <List />
         </div>
-        <div class="side-bar">
+        <div className="side-bar">
         <button className="btn btnObj space">{CurrentEmail.value}</button>
-            <p class="description space">Charakterystyka mapy</p>
+            <p className="description space">Charakterystyka mapy</p>
             <button className="btn btnObj space">Usuń mapę</button>
             <button className="btn btnObj space">Wczytaj nową</button>
         </div>

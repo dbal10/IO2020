@@ -21,6 +21,7 @@ const getSnackbarText = (string) => {
 }
 
 export const registerAsyncActionCreator = (isSu, email, password) => (dispatch, getState)=> {
+    CurrentEmail.value = email
     axios.post(SIGN_UP_URL, {
         email,
         password
@@ -32,7 +33,6 @@ export const registerAsyncActionCreator = (isSu, email, password) => (dispatch, 
             fire.database().ref('SuperUsers').push().set(email)
         }
         fire.database().ref('Users').push().set(email)
-        CurrentEmail.value = email
         console.log('%s', CurrentEmail.value)
     })
     .catch(error => {
@@ -45,6 +45,7 @@ export const registerAsyncActionCreator = (isSu, email, password) => (dispatch, 
 }
 
 export const logInAsyncActionCreator = (email, password) => (dispatch, getState) => {
+    CurrentEmail.value = email
     axios.post(SIGN_IN_URL, {
         email,
         password,
@@ -53,7 +54,6 @@ export const logInAsyncActionCreator = (email, password) => (dispatch, getState)
     .then(response => {
         const {idToken, refreshToken, localId} = response.data
         dispatch(saveUserActionCreator(idToken, refreshToken, localId))
-        CurrentEmail.value = email
         console.log('%s', CurrentEmail.value)
     })
     .catch(error => {
