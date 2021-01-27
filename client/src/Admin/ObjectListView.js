@@ -1,6 +1,7 @@
 import React from 'react'
 import './css/ObjectList.css';
 import { Route, Link } from 'react-router-dom';
+import CurrentEmail from '../state/CurrentEmail.js'
 
 
 function List(props) {
@@ -25,7 +26,7 @@ function Menu(props){
         <List objects={objects} />
         </div>
         <div class="side-bar">
-            <button className="btn btnObj">Konto</button>
+            <button className="btn btnObj">{CurrentEmail.value}</button>
             <p className="description">opis obiektu</p>
 
             <Link to='/item/modify'>
