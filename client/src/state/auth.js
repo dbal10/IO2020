@@ -2,6 +2,7 @@ import axios from 'axios'
 import {SIGN_UP_URL, SIGN_IN_URL} from '../const/firebase'
 import fire from "../firebase"
 import {addSnackbar} from './snackbars'
+import CurrentEmail from './CurrentEmail'
 
 const SAVE_USER = 'auth/SAVE_USER'
 const LOG_OUT = 'auth/LOG_OUT'
@@ -31,8 +32,8 @@ export const registerAsyncActionCreator = (isSu, email, password) => (dispatch, 
             fire.database().ref('SuperUsers').push().set(email)
         }
         fire.database().ref('Users').push().set(email)
-        var currentMail = email
-        console.log('%s', currentMail)
+        CurrentEmail.value = email
+        console.log('%s', CurrentEmail.value)
     })
     .catch(error => {
         const text = getSnackbarText(
@@ -52,8 +53,8 @@ export const logInAsyncActionCreator = (email, password) => (dispatch, getState)
     .then(response => {
         const {idToken, refreshToken, localId} = response.data
         dispatch(saveUserActionCreator(idToken, refreshToken, localId))
-        var currentMail = email
-        console.log('%s', currentMail)
+        CurrentEmail.value = email
+        console.log('%s', CurrentEmail.value)
     })
     .catch(error => {
         const text = getSnackbarText(

@@ -1,6 +1,7 @@
 import React from 'react'
 import './css/ObjectList.css';
 import './css/ArchiveMaps.css';
+import CurrentEmail from '../state/CurrentEmail.js'
 
 function List(props) {
     // const templates = props.templates;
@@ -28,7 +29,7 @@ function Menu(props){
         <List />
         </div>
         <div class="side-bar">
-        <button className="btn btnObj space">Konto</button>
+        <button className="btn btnObj space">{CurrentEmail.value}</button>
             <p class="description space">Charakterystyka mapy</p>
             <button className="btn btnObj space">Usuń mapę</button>
             <button className="btn btnObj space">Wczytaj nową</button>
